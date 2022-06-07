@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="poly.persistance.mapper.IUserInfoMapper">
+
+    <!-- USER 등록 -->
+    <insert id="insertUserInfo" parameterType="UserInfoDTO" >
+        INSERT INTO USER_INFO
+        (
+            USER_SEQ,
+            USER_AUTH,
+            USER_PW,
+            USER_NAME,
+            USER_EMAIL,
+            USER_AGE,
+            USER_GENDER,
+            USER_HEIGHT,
+            USER_WEIGHT,
+            USER_RC,
+            USER_BM,
+            USER_BMI,
+            USER_RE,
+            TARGET_WEIGHT,
+            TARGET_PERIOD
+        )
+        VALUES(
+            (SELECT IFNULL(MAX(USER_SEQ), 0)+1 FROM USER_INFO A),
+            #{user_seq},
+            #{user_auth},
+            #{user_pw},
+            #{user_name},
+            #{user_email}
+            #{user_age},
+            #{user_gender},
+            #{user_height},
+            #{user_weight},
+            #{user_RC},
+            #{user_BM},
+            #{user_BMI},
+            #{user_RE},
+            #{target_weight},
+            #{target_period}
+
+        )
+
+    </insert>
+
+    <!-- 로그인을 위해 이메일과 비밀번호가 일치하는지 확인하기 -->
+    <select id="getUserLoginCheck" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        SELECT USER_EMAIL
+        FROM USER_INFO
+        WHERE USER_EMAIL = #{user_email}
+        AND  USER_PW = #{user_pw}
+    </select>
+
+
+    <!-- EMAIL로 회원가입 중복 방지 -->
+    <select id="getUserExists" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+        <!-- case 값  when 조건 then 결과값 end 별칭 -->
+        <!-- select decode(count(*),1,'true','false') as result from test where id = 'test' pw='123'; -->
+        SELECT DECODE((COUNT(1), 0, 'N', 'Y') AS EXISTS_YN
+        FROM USER_INFO
+        WHERE USER_EMAIL = #{user_email}
+    </select>
+
+    <!-- USER 조회 -->
+    <select id="getUserInfo" resultType="UserInfoDTO">
+        SELECT *
+        FROM USER_INFO
+        WHERE USER_EMAIL = #{user_email}
+    </select>
+
+    <!-- 회원정보 상세조회 -->
+    <select id="getUserDetail" resultType="UserInfoDTO">
+        SELECT USER_NAME, USER_HEIGHT, USER_GENDER, USER_AGE, USER_BM, USER_RC,
+               TARGET_WEIGHT, USER_WEIGHT, USER_BMI
+        FROM USER_INFO
+        WHERE USER_EMAIL = #{USER_EMAIL}
+    </select>
+    
+    <!-- 회원정보 수정처리 -->
+    <update id="updateUserInfo" parameterType="UserInfoDTO">
+        UPDATE USER_INFO SET
+            USER_NAME = #{user_name},
+            USER_HEIGHT = #{user_height},
+            USER_GENDER = #{user_gender},
+            USER_AGE = #{user_age},
+            USER_BM = #{user_BM},
+            USER_RC = #{user_RC},
+            TARGET_WEIGHT = #{target_weight},
+            USER_WEIGHT = #{user_weight},
+            USER_BMI = #{user_BMI}
+        WHERE USER_SEQ = #{user_seq}
+    </update>
+
+    <!-- 기초 대사량 구하기 -->
+    <select id="getUserBM" resultType="UserInfoDTO">
+
+    </select>
+    <!-- 회원 권장 칼로리 구하기 -->
+    <select id="getUserRC" resultType="UserInfoDTO">
+        SELECT USER_EMAIL,
+
+    </select>
+
+    <!-- 유저가 가입한 스터디정보에 가입한 스터디이름 추가 -->
+<!--    <update id="updateJoinStudy" parameterType="hashMap">-->
+<!--        UPDATE USER_INFO-->
+<!--        SET USER_STUDY = CASE WHEN USER_STUDY = ""-->
+<!--                                  THEN #{study_name}-->
+<!--                              ELSE (CONCAT(USER_STUDY,',',#{study_name})) END-->
+<!--        WHERE USER_SEQ = (SELECT USER_SEQ FROM USER_INFO WHERE USER_ID = #{user_id})-->
+<!--    </update>-->
+
+    <!-- 유저 가입한 스터디정보에 탈퇴한 스터디이름 제거 -->
+<!--    <update id="updateLeaveStudy" parameterType="hashMap">-->
+<!--        UPDATE USER_INFO-->
+<!--        SET USER_STUDY = #{user_study}-->
+<!--        WHERE USER_SEQ = (SELECT USER_SEQ FROM USER_INFO WHERE USER_ID = #{user_id})-->
+<!--    </update>-->
+
+<!--    <update id="updateUserMbti" parameterType="UserInfoDTO">-->
+<!--        UPDATE USER_INFO-->
+<!--        SET USER_MBTI = #{user_mbti}-->
+<!--        WHERE USER_ID = #{user_id}-->
+<!--    </update>-->
+
+<!--    &lt;!&ndash; 스터디에 가입한 유저 MBTI 조회 &ndash;&gt;-->
+<!--    <select id="getUserMbti" parameterType="ArrayList" resultType="String">-->
+<!--        SELECT USER_MBTI-->
+<!--        FROM USER_INFO-->
+<!--        WHERE USER_ID IN-->
+<!--        <foreach collection="list" item="value" index="index" open="(" separator="," close=")">-->
+<!--            #{value}-->
+<!--        </foreach>-->
+<!--    </select>-->
+
+    <!-- 카카오 이메일로 유저 정보 가져오기 -->
+    <select id="getUserKakao" parameterType="hashMap" resultType="UserInfoDTO">
+        SELECT *
+        FROM USER_INFO
+        WHERE
+            USER_EMAIL = #{email}
+    </select>
+
+    <!-- 가입인원의 MBTI가져오기 -->
+    <select id="getMbtiCount" resultType="String">
+        SELECT USER_MBTI
+        FROM USER_INFO
+    </select>
+</mapper>
