@@ -29,7 +29,7 @@ public class EncryptUtil {
     //AES128-CBC 암호화 알고리즘 에서 사용되는 키(16자리 문자만 가능함)
     final static String key = "PolyTechnic12345"; //16글자(영문자 1글자당 1바이트임)
 
-    public static String encHashSHa256(String str) throws Exception {
+    public static String encHashSHA256(String str) throws Exception {
 
         String res = ""; //암호화 결과값이 저장되는 변수
         String plantText = addMessage + str; //암호화 시킬 값에 보안강화를 위해 임의 값을 추가함
@@ -92,4 +92,5 @@ public class EncryptUtil {
         cipher.init(Cipher.DECRYPT_MODE, newkey, ivSpec);
         return new String(cipher.doFinal(textBytes), "UTF-8");
     }
+
 }

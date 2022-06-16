@@ -5,4 +5,10 @@
 <!--    <select id="sumCalories" resultType="int">-->
 <!--        SELECT-->
 <!--    </select>-->
+    <!-- 몸무게 카운트-->
+    <select id="countWeight" resultType="UserWeightDTO">
+        SELECT CURRENT_WEIGHT FROM USER_WEIGHT
+        WHERE
+    </select>
+
 </mapper>

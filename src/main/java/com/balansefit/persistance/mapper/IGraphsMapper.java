@@ -1,6 +1,10 @@
 package com.balansefit.persistance.mapper;
 
-public interface INutrientGraphsMapper {
+import com.balansefit.dto.UserWeightDTO;
+
+import java.util.List;
+
+public interface IGraphsMapper {
 
 //    // 칼로리 카운트
 //    public List<NutrientGraphsDTO> sumCalories(NutrientGraphsDTO nDTO) throws Exception;
@@ -19,5 +23,8 @@ public interface INutrientGraphsMapper {
 //
 //    // 물 카운트
 //    public List<NutrientGraphsDTO> sumWater(NutrientGraphsDTO nDTO) throws Exception;
+
+    // 몸무게 카운트
+    public List<UserWeightDTO> countWeight(UserWeightDTO wDTO) throws Exception;
 
 }

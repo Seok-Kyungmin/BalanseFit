@@ -1,19 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
--->
-<!-- beautify ignore:start -->
 <html
         lang="en"
         class="light-style customizer-hide"
@@ -29,11 +16,11 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Sign up</title>
 
     <meta name="description" content="" />
 
-    <!-- Favicon/assets/img/favicon/favicon.ico -->
+    <!-- Favicon /..../static/assets/img/favicon/favicon.ico-->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
@@ -64,30 +51,71 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-
     <script type="text/javascript">
-        function doLoginUserCheck(f){
-            if (f.user_email.value==""){
-                alert("이메일을 입력하세요");
-                f.user_email.focus();
+
+        //회원가입 정보의 유효성 체크하기
+        function doRegUserCheck(f){
+
+            if (f.user_auth.value==""){
+                alert("권한을 선택하세요.");
+                f.user_auth.focus();
                 return false;
             }
+            if (f.user_id.value==""){
+                alert("아이디를 입력하세요.");
+                f.user_id.focus();
+                return false;
+            }
+
             if (f.user_pw.value==""){
                 alert("비밀번호를 입력하세요");
                 f.user_pw.focus();
                 return false;
             }
+
+            if (f.user_name.value==""){
+                alert("닉네임을 입력하세요");
+                f.user_name.focus();
+                return false;
+            }
+
+            if (f.user_email.value==""){
+                alert("이메일을 입력하세요");
+                f.user_email.focus();
+                return false;
+            }
+
+            if (f.user_age.value==""){
+                alert("나이를 입력하세요");
+                f.user_age.focus();
+                return false;
+            }
+            if (f.user_gender.value==""){
+                alert("성별을 입력하세요");
+                f.user_gender.focus();
+                return false;
+            }
+            if (f.user_height.value==""){
+                alert("키를 입력하세요");
+                f.user_height.focus();
+                return false;
+            }
+            if (f.user_weight.value==""){
+                alert("몸무게를 입력하세요");
+                f.user_weight.focus();
+                return false;
+            }
+
         }
     </script>
 </head>
 
 <body>
 <!-- Content -->
-
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-            <!-- Register -->
+            <!-- Register Card -->
             <div class="card">
                 <div class="card-body">
                     <!-- Logo -->
@@ -152,8 +180,27 @@
                         </a>
                     </div>
                     <!-- /Logo -->
+                    <h4 class="mb-2">회원가입 🚀</h4>
+                    <!--              <p class="mb-4">Make your app management easy and fun!</p>-->
 
-                    <form id="formAuthentication" class="mb-3" action="Signup.jsp" method="GET">
+                    <form id="formAuthentication" class="mb-3" method="post" action="/regUser1" onsubmit="return doRegUserCheck(this);">
+
+                        <div class="mb-3" style="margin-top: 50px;">
+                            <label class="form-label">권한</label>
+                            <input type="radio" id="admin" name="user_auth" value="관리자" style="width: 12px;height: 12px;margin-left: 25px;"> 관리자
+                            <input type="radio" id="user" name="user_auth" value="회원" style="width: 12px;height: 12px; margin-left: 12px;"> 회원
+                        </div>
+                        <div class="mb-3">
+                            <label for="id" class="form-label">아이디</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="id"
+                                    name="user_id"
+                                    placeholder="nickname"
+                                    autofocus
+                            />
+                        </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">이메일</label>
                             <input
@@ -161,17 +208,10 @@
                                     class="form-control"
                                     id="email"
                                     name="user_email"
-                                    placeholder="Enter your email or username"
-                                    autofocus
-                            />
+                                    placeholder="email" />
                         </div>
                         <div class="mb-3 form-password-toggle">
-                            <div class="d-flex justify-content-between">
-                                <label class="form-label" for="password">비밀번호</label>
-                                <a href="auth-forgot-password-basic.html">
-                                    <small>Forgot Password?</small>
-                                </a>
-                            </div>
+                            <label class="form-label" for="password">비밀번호</label>
                             <div class="input-group input-group-merge">
                                 <input
                                         type="password"
@@ -184,29 +224,111 @@
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me" />
-                                <label class="form-check-label" for="remember-me"> Remember Me </label>
+                        <div class="mb-3 form-password-toggle">
+                            <label class="form-label" for="password2">비밀번호 확인</label>
+                            <div class="input-group input-group-merge">
+                                <input
+                                        type="password"
+                                        id="password2"
+                                        class="form-control"
+                                        name="user_pw2"
+                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                                        aria-describedby="password"
+                                />
+                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100" type="submit">로그인</button>
+                            <label for="user_name" class="form-label">닉네임</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="user_name"
+                                    name="user_name"
+                                    placeholder="nickname"
+                                    autofocus
+                            />
                         </div>
+                        <div class="mb-3">
+                            <label for=age class="form-label">나이</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="age"
+                                    name="user_age"
+                                    placeholder="age" />
+                        </div>
+                        <div class="mb-3">
+<%--                            <label for=gender class="form-label">성별</label>--%>
+<%--                            <input--%>
+<%--                                    type="text"--%>
+<%--                                    class="form-control"--%>
+<%--                                    id="gender"--%>
+<%--                                    name="user_gender"--%>
+<%--                                    placeholder="gender" />--%>
+                            <label class="form-label">성별</label>
+                            <input type="radio" id="man" name="user_gender" value="남자" style="width: 12px;height: 12px;margin-left: 25px;"> 남자
+                            <input type="radio" id="woman" name="user_gender" value="여자" style="width: 12px;height: 12px; margin-left: 12px;"> 여자
+                        </div>
+                        <div class="mb-3">
+                            <label for="height" class="form-label">키</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="height"
+                                    name="user_height"
+                                    placeholder="height" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="weight" class="form-label">몸무게</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="weight"
+                                    name="user_weight"
+                                    placeholder="weight" />
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
+                                <label class="form-check-label" for="terms-conditions">
+                                    개인 정보 보호 정책 및 약관에 동의합니다.
+                                    <a href="javascript:void(0);"></a>
+                                </label>
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-primary d-grid w-100" value="회원가입" />
                     </form>
 
                     <p class="text-center">
-                        <a href="Signup.jsp">
-                            <span>회원가입</span>
+                        <a href="/loginPage">
+                            <span>로그인</span>
                         </a>
                     </p>
                 </div>
             </div>
-            <!-- /Register -->
+            <!-- Register Card -->
         </div>
     </div>
 </div>
+<%--<script>--%>
+<%--    let m = document.querySelector('#man');--%>
+<%--    let w = document.querySelector('#woman');--%>
 
+<%--    function doGenderBMR(f) {--%>
+<%--        if (m) {--%>
+<%--            f.user_gender = "남자";--%>
+<%--            f.user_BMR = 66 + (13.8 * f.user_weight) + (5*f.user_height) - (6.8*f.user_age);--%>
+<%--        } else if (w) {--%>
+<%--            f.user_gender = "여자";--%>
+<%--            f.user_BMR = 655 + (9.6 * f.user_weight) + (1.8*f.user_height) - (4.7*f.user_age);--%>
+<%--        }--%>
+<%--    }--%>
+<%--</script>--%>
+<script>
+
+</script>
 <!-- / Content -->
 
 <!--    <div class="buy-now">-->
@@ -219,11 +341,11 @@
 <!--    </div>-->
 
 <!-- Core JS -->
-<!-- build:js ../static/assets/vendor/js/core.js -->
+<!-- build:js ..../static/assets/vendor/js/core.js -->
 <script src="../assets/vendor/libs/jquery/jquery.js"></script>
 <script src="../assets/vendor/libs/popper/popper.js"></script>
-<script src="../assets/vendor/js/bootstrajs"></script>
-<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="../assets/vendor/js/bootstrap.js"></script>
+<script src=../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
 <script src="../assets/vendor/js/menu.js"></script>
 <!-- endbuild -->
@@ -232,7 +354,6 @@
 
 <!-- Main JS -->
 <script src="../assets/js/main.js"></script>
-
 
 <!-- Page JS -->
 

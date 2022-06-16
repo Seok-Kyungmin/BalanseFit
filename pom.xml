@@ -17,6 +17,25 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- json 사용을 위한 라이브러리 -->
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-reactor-netty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
         <!-- 스프링부트에서는 소스코드가 바뀌어도 자동으로 서버가 재시작하지 않기 때문에 이 구문을 추가해서 자동으로 재시작하게 해준다. -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

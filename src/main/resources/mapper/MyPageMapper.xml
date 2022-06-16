@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="poly.persistance.mapper.IUserInfoMapper">
+
+    <!-- 마이 페이지 사용자게시판 -->
+    <select id="getSmallInfoList" resultType="UserInfoDTO">
+        SELECT USER_NAME, USER_WEIGHT, USER_AGE, USER_BM, USER_BMI
+        FROM USER_INFO
+    </select>
+
+    <!-- 프로필 리스트 -->
+    <select id="getUserInfoList" resultType="UserInfoDTO">
+        SELECT USER_NAME,
+               USER_WEIGHT,
+               USER_HEIGHT,
+               USER_GENDER,
+               USER_AGE,
+               USER_BM,
+               USER_RC,
+               TARGET_WEIGHT,
+               USER_BMI
+        FROM USER_INFO
+    </select>
+
+    <!-- 프로필 글 수정 -->
+    <update id="updateUserInfo" parameterType="UserInfoDTO">
+        UPDATE USER_INFO
+        SET USER_NAME     = #{user_name},
+            USER_HEIGHT   = #{user_height},
+            USER_GENDER   = #{user_gender},
+            USER_AGE      = #{user_age},
+            TARGET_WEIGHT = #{target_weight}
+        WHERE USER_ID = #{user_id}
+    </update>
+
+    <!-- 일일 몸무게 리스트 -->
+    <select id="getWeightList" resultType="UserWeightDTO">
+        SELECT W.CURRENT_W,
+               W.USER_ID,
+               U.USER_ID,
+               U.USER_WEIGHT,
+               DATE_FORMAT(W.WEIGHT_DT, '%m월%d일') AS WEIGHT_DT
+        FROM USER_WEIGHT W,
+             USER_INFO U
+        WHERE W.USER_ID = U.USER_ID
+          AND W.CURRENT_WEIGHT = U.USER_WEIGHT
+        ORDER BY W.WEIGHT_DT ASC
+    </select>
+
+</mapper>
+

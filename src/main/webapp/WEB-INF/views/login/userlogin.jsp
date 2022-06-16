@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ page import="com.balansefit.util.CmmUtil" %>
 <!DOCTYPE html>
+
+<!-- =========================================================
+* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
+==============================================================
+
+* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
+* Created by: ThemeSelection
+* License: You must have a valid license purchased in order to legally use the theme for your project.
+* Copyright ThemeSelection (https://themeselection.com)
+
+=========================================================
+-->
+<!-- beautify ignore:start -->
 <html
         lang="en"
         class="light-style customizer-hide"
@@ -16,11 +30,11 @@
             content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Sign up</title>
+    <title>Login Basic - Pages | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
 
     <meta name="description" content="" />
 
-    <!-- Favicon /..../static/assets/img/favicon/favicon.ico-->
+    <!-- Favicon/assets/img/favicon/favicon.ico -->
     <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
 
     <!-- Fonts -->
@@ -51,13 +65,12 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="../assets/js/config.js"></script>
-    <script type="text/javascript">
 
-        //회원가입 정보의 유효성 체크하기
-        function doRegUserCheck(f){
-            if (f.user_email.value==""){
-                alert("이메일을 입력하세요");
-                f.user_email.focus();
+    <script type="text/javascript">
+        function doLoginUserCheck(f){
+            if (f.user_id.value==""){
+                alert("아이디를 입력하세요");
+                f.user_id.focus();
                 return false;
             }
             if (f.user_pw.value==""){
@@ -65,90 +78,7 @@
                 f.user_pw.focus();
                 return false;
             }
-            if (f.user_pw.value==""){
-                alert("비밀번호 확인을 입력하세요");
-                f.user_pw.focus();
-                return false;
-            }
-            if (f.user_name.value==""){
-                alert("닉네임을 입력하세요");
-                f.user_name.focus();
-                return false;
-            }
-            if (f.user_age.value==""){
-                alert("나이를 입력하세요");
-                f.user_age.focus();
-                return false;
-            }
-            if (f.user_gender.value==""){
-                alert("성별을 입력하세요");
-                f.user_gender.focus();
-                return false;
-            }
-            if (f.user_height.value==""){
-                alert("키를 입력하세요");
-                f.user_height.focus();
-                return false;
-            }
-            if (f.user_weight.value==""){
-                alert("몸무게를 입력하세요");
-                f.user_weight.focus();
-                return false;
-            }
         }
-    </script>
-    <script>
-
-        $('#passWordCheck').on('keyup', function(){
-
-            var pw = document.getElementById("newPassWord").value; //비밀번호
-            var pw2 = document.getElementById("passWordCheck").value; // 확인 비밀번호
-
-            if (pw != '' && pw2 == '') {
-                null;
-            } else if (pw != "" || pw2 != "") {
-                if (pw == pw2) {
-                    $(".renew").text("비밀번호가 일치합니다.");
-                    $(".renew").css("color", "#00f");
-                    newPwd = 'Y';
-                } else {
-                    $(".renew").text("비밀번호가 일치하지 않습니다.");
-                    $(".renew").css("color", "#f00");
-                    newPwd = 'N';
-                }
-            }
-        })
-        var doCheck = 'N'
-
-        $('#user_email').on('keyup', function(){
-            var query = {
-                userId : $("#user_email").val()
-            };
-            $.ajax({
-                url : "emailCheck.do",
-                type : "post",
-                data : query,
-                success : function(data) {
-                    if (data == 1) {
-                        $(".msg").text("사용하고 있는 아이디입니다.");
-                        $(".msg").attr("style", "color:#f00");
-                        doCheck = 'N'
-                    } else {
-                        $(".msg").text("사용 가능한 아이디입니다.");
-                        $(".msg").attr("style", "color:#00f");
-                        //$('#userId').attr("disabled", true);
-                        doCheck = 'Y'
-                    }
-                }
-            }); // ajax 끝
-        });
-        function check() {
-            if (doCheck == 'N') {
-                alert("사용중인 아이디입니다.")
-                return false;
-            }
-        }
-
     </script>
 </head>
 
@@ -158,7 +88,7 @@
 <div class="container-xxl">
     <div class="authentication-wrapper authentication-basic container-p-y">
         <div class="authentication-inner">
-            <!-- Register Card -->
+            <!-- Register -->
             <div class="card">
                 <div class="card-body">
                     <!-- Logo -->
@@ -223,32 +153,26 @@
                         </a>
                     </div>
                     <!-- /Logo -->
-                    <h4 class="mb-2">회원가입 🚀</h4>
-                    <!--              <p class="mb-4">Make your app management easy and fun!</p>-->
 
-                    <form id="formAuthentication" class="mb-3" action="Login.jsp" method="GET">
+                    <form id="formAuthentication" class="mb-3" method="post" action="/loginPage1" onsubmit="return doLoginUserCheck(this)">
                         <div class="mb-3">
-                            <label for="user_name" class="form-label">닉네임</label>
+                            <label for="id" class="form-label">아이디</label>
                             <input
                                     type="text"
                                     class="form-control"
-                                    id="user_name"
-                                    name="user_name"
-                                    placeholder="nickname"
+                                    id="id"
+                                    name="user_id"
+                                    placeholder="Enter your Id"
                                     autofocus
                             />
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">이메일</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="email"
-                                    name="user_email"
-                                    placeholder="email" />
-                        </div>
                         <div class="mb-3 form-password-toggle">
-                            <label class="form-label" for="password">비밀번호</label>
+                            <div class="d-flex justify-content-between">
+                                <label class="form-label" for="password">비밀번호</label>
+                                <a href="auth-forgot-password-basic.html">
+                                    <small>Forgot Password?</small>
+                                </a>
+                            </div>
                             <div class="input-group input-group-merge">
                                 <input
                                         type="password"
@@ -261,77 +185,27 @@
                                 <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                             </div>
                         </div>
-                        <div class="mb-3 form-password-toggle">
-                            <label class="form-label" for="password">비밀번호 확인</label>
-                            <div class="input-group input-group-merge">
-                                <input
-                                        type="password"
-                                        id="password2"
-                                        class="form-control"
-                                        name="user_pw"
-                                        placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                                        aria-describedby="password"
-                                />
-                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for=age class="form-label">나이</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="age"
-                                    name="user_age"
-                                    placeholder="age" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="gender" class="form-label">성별</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="gender"
-                                    name="user_gender"
-                                    placeholder="gender" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="height" class="form-label">키</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="height"
-                                    name="user_height"
-                                    placeholder="height" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="weight" class="form-label">몸무게</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="weight"
-                                    name="user_weight"
-                                    placeholder="weight" />
-                        </div>
-
                         <div class="mb-3">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                                <label class="form-check-label" for="terms-conditions">
-                                    개인 정보 보호 정책 및 약관에 동의합니다.
-                                    <a href="javascript:void(0);"></a>
-                                </label>
+                                <input class="form-check-input" type="checkbox" id="remember-me" />
+                                <label class="form-check-label" for="remember-me"> Remember Me </label>
                             </div>
                         </div>
-                        <button class="btn btn-primary d-grid w-100">회원가입</button>
+                        <div class="mb-3">
+                            <a href="/mypage">
+                            <button class="btn btn-primary d-grid w-100" type="submit">로그인</button>
+                            </a>
+                        </div>
                     </form>
 
                     <p class="text-center">
-                        <a href="Login.jsp">
-                            <span>로그인</span>
+                        <a href="/regUser">
+                            <span>회원가입</span>
                         </a>
                     </p>
                 </div>
             </div>
-            <!-- Register Card -->
+            <!-- /Register -->
         </div>
     </div>
 </div>
@@ -348,11 +222,11 @@
 <!--    </div>-->
 
 <!-- Core JS -->
-<!-- build:js ..../static/assets/vendor/js/core.js -->
+<!-- build:js ../static/assets/vendor/js/core.js -->
 <script src="../assets/vendor/libs/jquery/jquery.js"></script>
 <script src="../assets/vendor/libs/popper/popper.js"></script>
 <script src="../assets/vendor/js/bootstrajs"></script>
-<script src=../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
 <script src="../assets/vendor/js/menu.js"></script>
 <!-- endbuild -->
@@ -361,6 +235,7 @@
 
 <!-- Main JS -->
 <script src="../assets/js/main.js"></script>
+
 
 <!-- Page JS -->
 

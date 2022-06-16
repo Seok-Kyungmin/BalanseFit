@@ -10,7 +10,7 @@ public class EncryptTest {
         String str = "암호화할 문자열";
 
         //복호화가 불가능한 해시암호화 알고리즘 실행
-        String hashEnc = EncryptUtil.encHashSHa256(str);
+        String hashEnc = EncryptUtil.encHashSHA256(str);
 
         //해시 암호화 알고리즘 결과 출력
         System.out.println("hashEnc : "+ hashEnc);
