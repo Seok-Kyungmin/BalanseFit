@@ -183,7 +183,7 @@
                     <h4 class="mb-2">회원가입 🚀</h4>
                     <!--              <p class="mb-4">Make your app management easy and fun!</p>-->
 
-                    <form id="formAuthentication" class="mb-3" method="post" action="/regUser1" onsubmit="return doRegUserCheck(this);">
+                    <form id="formAuthentication" class="mb-3" method="post" action="/regAdmin1" onsubmit="return doRegUserCheck(this);">
 
                         <div class="mb-3">
                             <label for="id" class="form-label">아이디</label>
@@ -254,13 +254,13 @@
                                     placeholder="age" />
                         </div>
                         <div class="mb-3">
-<%--                            <label for=gender class="form-label">성별</label>--%>
-<%--                            <input--%>
-<%--                                    type="text"--%>
-<%--                                    class="form-control"--%>
-<%--                                    id="gender"--%>
-<%--                                    name="user_gender"--%>
-<%--                                    placeholder="gender" />--%>
+                            <%--                            <label for=gender class="form-label">성별</label>--%>
+                            <%--                            <input--%>
+                            <%--                                    type="text"--%>
+                            <%--                                    class="form-control"--%>
+                            <%--                                    id="gender"--%>
+                            <%--                                    name="user_gender"--%>
+                            <%--                                    placeholder="gender" />--%>
                             <label class="form-label">성별</label>
                             <input type="radio" id="man" name="user_gender" value="남자" style="width: 12px;height: 12px;margin-left: 25px;"> 남자
                             <input type="radio" id="woman" name="user_gender" value="여자" style="width: 12px;height: 12px; margin-left: 12px;"> 여자
@@ -297,7 +297,7 @@
                     </form>
 
                     <p class="text-center">
-                        <a href="/loginPage">
+                        <a href="/adminLoginPage">
                             <span>로그인</span>
                         </a>
                     </p>

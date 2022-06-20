@@ -15,7 +15,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="../img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -71,10 +71,10 @@
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
-                    <a href="diet.html" class="nav-item nav-link">Diet</a>
-                    <a href="service.html" class="nav-item nav-link">Exercise</a>
-                    <a href="food.html" class="nav-item nav-link">Food</a>
+                    <a href="/index" class="nav-item nav-link">Home</a>
+                    <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
+                    <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
+                    <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
                     <!--                        <div class="nav-item dropdown">-->
                     <!--                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>-->
                     <!--                            <div class="dropdown-menu m-0">-->
@@ -91,7 +91,7 @@
 
         <div class="container-xxl py-5 bg-dark hero-header mb-5">
             <div class="container text-center my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Our Exercise</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Our Food</h1>
             </div>
         </div>
     </div>
@@ -102,8 +102,8 @@
     <div class="container-xxl pt-5 pb-3">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Exercises</h5>
-                <h1 class="mb-5">Our Exercise</h1>
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Foods</h5>
+                <h1 class="mb-5">Our Food</h1>
             </div>
             <div class="row g-4">
                 <%

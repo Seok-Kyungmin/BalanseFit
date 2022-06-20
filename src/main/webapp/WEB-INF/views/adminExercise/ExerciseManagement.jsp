@@ -35,7 +35,8 @@
             crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script>
+            crossorigin="anonymous">
+    </script>
 </head>
 <body style="background: #EAEAF9;">
 <header class="header">
@@ -75,7 +76,7 @@
             <button type="button" class="btn-open-popup" style="
                 margin-left: 5px; width: 90px;height: 35px;background-color: #696CFF; box-shadow: 0px 2px 6px #696CFF; border-radius: 7px;
                 color: #ffffff;font-size: 14px;font-weight: 500;font-family: 'Noto Sans KR', sans-serif; border: 0"
-                    data-toggle="modal" data-target="exerciseModal">운동 수정
+                    data-toggle="modal" data-target=".bd-example-modal-lg">운동 수정
             </button>
         </div>
     </div>
@@ -115,11 +116,8 @@
 </div>
 
 <!--<form id="formAuthentication" class="mb-3" action="exerciseManagement.html" method="POST">-->
-<!-- 수정 모달창 -->
-<div class="modal fade exerciseModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content" style="border-radius: 10px;">
+<div class="exerciseModal">
+    <div class="exerciseModal_body" style="border-radius: 10px;">
         <h2 class="modal_title" style="margin-left: 10%;">운동정보를 수정해 주세요</h2>
         <div style="display: flex;">
             <div style="margin: 0 auto;">
@@ -139,17 +137,16 @@
         </div>
         <div style="text-align: center;">
             <a href="exerciseManagement.html">
-                <button type="button" data-target=" exerciseModal" style="border: 0; width: 30%;height: 35px; margin-top: 70px; margin-bottom: 35px;background-color: #696CFF; box-shadow: 0px 2px 6px #696CFF;
+                <button type="button" style="border: 0; width: 30%;height: 35px; margin-top: 70px; margin-bottom: 35px;background-color: #696CFF; box-shadow: 0px 2px 6px #696CFF;
                         border-radius: 7px; color: #ffffff;font-size: 14px;font-weight: 500; font-family: 'Noto Sans KR', sans-serif;">
-                    수정하기
+                    추가하기
                 </button>
             </a>
         </div>
     </div>
 </div>
-</div>
 <!--</form>-->
-<!-- 추가 모달창 -->
+<!-- Modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-lg">

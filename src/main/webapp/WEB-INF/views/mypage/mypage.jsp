@@ -5,19 +5,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%
-    List<UserInfoDTO> usList= (List<UserInfoDTO>) request.getAttribute("usList");
+    List<UserInfoDTO> mList= (List<UserInfoDTO>) request.getAttribute("mList");
 
     //조회 결과 보여주기
-    if (usList==null){
-        usList = new ArrayList<UserInfoDTO>();
+    if (mList==null){
+        mList = new ArrayList<UserInfoDTO>();
 
     }
 %>
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>myPage</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <title>MyPage</title>
     <!-- Font css -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -289,17 +289,6 @@
         }
 
     </style>
-    <%
-        UserInfoDTO uDTO = null;
-
-        for (int i = 0; i < usList.size(); i++) {
-            uDTO = usList.get(i);
-
-            if (uDTO == null) {
-                uDTO = new UserInfoDTO();
-            }
-        }
-    %>
 </head>
 <body style="background-color: #EAEAF9; margin: 0px; width: 100%;">
 
@@ -312,6 +301,14 @@
     <a href="/setting">
         <input type="button" class="btn" name="btn" value="수정">
     </a>
+    <%
+        for (int i = 0; i < mList.size(); i++) {
+            UserInfoDTO uDTO = mList.get(i);
+
+            if (uDTO == null) {
+                uDTO = new UserInfoDTO();
+            }
+    %>
     <div class="box-3">
         <h5 class="cat">현재 체중</h5>
         <p class="value-1"><%=CmmUtil.nvl(uDTO.getUser_weight())%></p>
@@ -322,6 +319,9 @@
         <h5 class="cat-4">1일 적정량</h5>
         <p class="value-4"><%=CmmUtil.nvl(uDTO.getUser_RC())%></p>
     </div>
+    <%
+        }
+    %>
 </div>
 <%--<div class="box-2" style="height: 180px">--%>
 <%--    <h4 class="name">D - 0</h4>--%>

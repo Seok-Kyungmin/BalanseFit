@@ -1,15 +1,16 @@
 package com.balansefit.service.impl;
 
 import com.balansefit.dto.FoodDTO;
-import com.balansefit.persistance.mongodb.IFoodMapper;
+import com.balansefit.persistance.mapper.IFoodMapper;
 import com.balansefit.service.IFoodService;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -22,12 +23,17 @@ import java.util.List;
 @Service("FoodService")
 public class FoodService implements IFoodService {
 
-    @Resource(name = "FoodMapper")
-    private IFoodMapper foodMapper;
+    private final IFoodMapper foodMapper;
+
+    @Autowired
+    public FoodService(IFoodMapper foodMapper) {
+        this.foodMapper = foodMapper;
+    }
+
 
     // 음식리스트 저장하기
     @Override
-    public int collectFoodSong() throws Exception{
+    public int collectFood() throws Exception{
         log.info(this.getClass().getName() + ".collectFoodSong Start!");
 
         StringBuilder urlBuilder = new StringBuilder("http://apis.data.go.kr/1471000/FoodNtrIrdntInfoService1/getFoodNtrItdntList1"); /*URL*/
@@ -87,7 +93,7 @@ public class FoodService implements IFoodService {
             fList.add(fDTO);
         }
 
-        int res = foodMapper.insertFood(fList, "Food");
+        int res = foodMapper.insertFood(fList);
 
         return res;
 
@@ -96,16 +102,36 @@ public class FoodService implements IFoodService {
     // 수집된 음식 리스트 가져오기
     @Override
     public List<FoodDTO> getFoodList() throws Exception {
-        return null;
+        return foodMapper.getFoodList();
     }
 
+    @Transactional
+    @Override
+    public void insertFoodInfo(FoodDTO pDTO) throws Exception {
 
-//    public List<FoodDTO> getFoodList() throws Exception{
-//
-//        log.info(this.getClass().getName() + ".getFoodList Start!");
-//
-//
-//        return rList;
-//    }
+        log.info(this.getClass().getName() + ".insertFoodInfo Start!");
+
+        foodMapper.insertFoodInfo(pDTO);
+
+    }
+
+    @Transactional
+    @Override
+    public FoodDTO getFoodInfo(FoodDTO pDTO) throws Exception {
+
+        log.info(this.getClass().getName() + ".getFoodInfo Start!");
+
+        return foodMapper.getFoodInfo(pDTO);
+    }
+
+    @Transactional
+    @Override
+    public void deleteFoodInfo(FoodDTO pDTO) throws Exception {
+
+        log.info(this.getClass().getName() + ".deleteFoodInfo Start!");
+
+        foodMapper.deleteFoodInfo(pDTO);
+
+    }
 
 }

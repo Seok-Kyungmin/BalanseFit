@@ -22,8 +22,13 @@ public class UserInfoDTO {
     String user_RE;        // 회원 권장운동량
     String target_weight;  // 회원 목표몸무게
     String target_period;  // 회원 목표기간
-    String Crt_itk;        // 현재 섭취량
-    String Crt_exc;        // 현재 운동량
+    String crt_itk;        // 현재 섭취량
+    String crt_exc;        // 현재 운동량
+    String reg_id;         // 최초 등록자아이디
+    String reg_dt;         // 최초 등록시간
+    String chg_id;         // 마지막 수정자아이디
+    String chg_dt;         // 마지막 수정시간
+
 
     // 회원가입시, 중복가입을 방지 위해 사용할 변수
     // DB를 조회해서 회원이 존재하면 Y값을 반환함

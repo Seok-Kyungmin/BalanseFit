@@ -125,11 +125,8 @@ public class UserInfoController {
     //로그인 페이지
     @GetMapping(value = "/loginPage")
     public  String userlogin() throws Exception{
-//        int res = foodService.collectFoodSong();
-//
-//        log.info("res : " + res);
 
-        return "/login/userlogin";
+        return "/login/userLogin";
 
     }
 
@@ -165,7 +162,7 @@ public class UserInfoController {
             if (res == 1) {
 
                 msg = "로그인 성공";
-                url = "/mypage/mypage";
+                url = "/mypage";
                 icon = "success";
                 log.info("user_id : " + user_id);
 

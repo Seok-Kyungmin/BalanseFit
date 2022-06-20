@@ -30,25 +30,26 @@ public class MyPageController {
 
     @GetMapping(value = "mypage")
     public String mypage(ModelMap model) throws Exception{
+
         log.info(this.getClass().getName()+ "mypage 시작!!");
 
         // 정보 리스트 가져오기
-        List<UserInfoDTO> usList = myPageService.getSmallInfoList();
+        List<UserInfoDTO> mList = myPageService.getSmallInfoList();
 
-        if (usList == null) {
-            usList = new ArrayList<>();
+        if (mList == null) {
+            mList = new ArrayList<>();
 
         }
 
         // 조회된 리스트 결과값 넣어주기
-        model.addAttribute("usList", usList);
+        model.addAttribute("mList", mList);
 
         log.info(this.getClass().getName()+ "mypage 끝!!");
 
-        return "mypage/mypage";
+        return "/mypage/mypage";
     }
 
-    @RequestMapping(value = "setting")
+    @RequestMapping(value = "/setting")
     public String setting(ModelMap model) throws Exception{
         log.info(this.getClass().getName()+ "setting 시작!!");
 
@@ -65,10 +66,10 @@ public class MyPageController {
 
         log.info(this.getClass().getName()+ "setting 끝!!");
 
-        return "mypage/setting";
+        return "/mypage/setting";
     }
 
-    @GetMapping(value = "WeightGraph")
+    @GetMapping(value = "/WeightGraph")
     public String getWeightList(ModelMap model) throws Exception{
 
         log.info(this.getClass().getName()+".WeightGraph start!");

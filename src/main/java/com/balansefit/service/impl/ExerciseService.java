@@ -37,9 +37,18 @@ public class ExerciseService implements IExerciseService {
 
     @Transactional
     @Override
+    public ExerciseDTO getExerciseInfo(ExerciseDTO eDTO) throws Exception{
+
+        log.info(this.getClass().getName() + ".getExerciseInfo start!");
+
+        return exerciseMapper.getExerciseInfo(eDTO);
+    }
+
+    @Transactional
+    @Override
     public void updateExerciseInfo(ExerciseDTO eDTO) throws Exception {
 
-        log.info(this.getClass().getName() + ".updateExerciseInfo start1");
+        log.info(this.getClass().getName() + ".updateExerciseInfo start!");
 
         exerciseMapper.updateExerciseInfo(eDTO);
     }
