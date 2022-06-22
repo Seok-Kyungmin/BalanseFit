@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +62,7 @@ public class ExerciseController {
     /**
      * 게시판 글 등록
      */
-    @PostMapping(value = "admin/ExerciseInsert")
+    @RequestMapping(value = "admin/ExerciseInsert")
     public String ExerciseInsert(HttpSession session, HttpServletRequest request, ModelMap model) {
 
         log.info(this.getClass().getName()+".ExerciseInsert start!");
@@ -81,14 +81,14 @@ public class ExerciseController {
             log.info("exercise_name : " + exercise_name);
             log.info("exercise_met : " + exercise_met);
 
-            ExerciseDTO eDTO = new ExerciseDTO();
+            ExerciseDTO pDTO = new ExerciseDTO();
 
-            eDTO.setUser_id(user_id);
-            eDTO.setExercise_name(exercise_name);
-            eDTO.setExercise_met(exercise_met);
+            pDTO.setUser_id(user_id);
+            pDTO.setExercise_name(exercise_name);
+            pDTO.setExercise_met(exercise_met);
 
             // 정보 추가하기 위한 비즈니스 로직을 호출
-            exerciseService.insertExerciseInfo(eDTO);
+            exerciseService.insertExerciseInfo(pDTO);
 
             // 저장이 완료되면 사용자에게 보여줄 메시지
             msg = "추가되었습니다!";
@@ -128,11 +128,11 @@ public class ExerciseController {
 
             log.info("eSeq : " + eSeq);
 
-            ExerciseDTO eDTO = new ExerciseDTO();
-            eDTO.setExercise_seq(eSeq);
+            ExerciseDTO pDTO = new ExerciseDTO();
+            pDTO.setExercise_seq(eSeq);
 
             // 상세정보 가져오기
-            ExerciseDTO rDTO = exerciseService.getExerciseInfo(eDTO);
+            ExerciseDTO rDTO = exerciseService.getExerciseInfo(pDTO);
 
             if (rDTO == null) {
                 rDTO = new ExerciseDTO();
@@ -163,7 +163,7 @@ public class ExerciseController {
     /**
      * 게시판 글 수정
      */
-    @PostMapping(value = "admin/ExerciseUpdate")
+    @RequestMapping(value = "admin/ExerciseUpdate")
     public String ExerciseUpdate(HttpSession session, HttpServletRequest request, ModelMap model) {
 
         log.info(this.getClass().getName()+".ExerciseUpdate start!");
@@ -183,15 +183,15 @@ public class ExerciseController {
             log.info("exercise_name : " + exercise_name);
             log.info("exercise_met : " + exercise_met);
 
-            ExerciseDTO eDTO = new ExerciseDTO();
+            ExerciseDTO pDTO = new ExerciseDTO();
 
-            eDTO.setUser_id(user_id);
-            eDTO.setExercise_seq(exercise_seq);
-            eDTO.setExercise_name(exercise_name);
-            eDTO.setExercise_met(exercise_met);
+            pDTO.setUser_id(user_id);
+            pDTO.setExercise_seq(exercise_seq);
+            pDTO.setExercise_name(exercise_name);
+            pDTO.setExercise_met(exercise_met);
 
             //게시글 수정하기 DB
-            exerciseService.updateExerciseInfo(eDTO);
+            exerciseService.updateExerciseInfo(pDTO);
 
             msg = "수정되었습니다.";
             url = "/admin/ExerciseList";
@@ -216,7 +216,7 @@ public class ExerciseController {
     /**
      * 게시판 글 삭제
      */
-    @GetMapping(value = "admin/ExerciseDelete")
+    @RequestMapping(value = "admin/ExerciseDelete")
     public String ExerciseDelete(HttpServletRequest request, ModelMap model) {
 
         log.info(this.getClass().getName()+".ExerciseDelete start!");

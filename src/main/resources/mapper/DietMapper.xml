@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- JAVA와 연결할 Mapper 파일 설정 -->
+<mapper namespace="com.balansefit.persistance.mapper.IDietMapper">
+
+    <!-- 식단 정보 리스트 -->
+    <select id="getDietList" resultType="DietDTO">
+        SELECT DIET_SEQ, DIET_NAME, DIET_CALORIES
+        FROM DIET
+        ORDER BY DIET_SEQ ASC
+    </select>
+
+    <!-- 식단 정보 등록 -->
+    <insert id="insertDietInfo" parameterType="DietDTO">
+        INSERT INTO DIET(
+            DIET_SEQ, DIET_NAME, FOOD_NAME, FOOD_NUMBER, DIET_CALORIES)
+--             USER_ID,REG_ID, REG_DT, CHG_ID, CHG_DT)
+        VALUES (
+               (SELECT NULLIF (MAX(A.DIET_SEQ),0)+1 FROM DIET A),
+               #{diet_name}, #{food_name}, #{food_number}, #{diet_calories})
+--                 #{user_id}, 0, #{user_id}, SYSDATE(), #{user_id}, SYSDATE())
+    </insert>
+
+    <!-- 식단 정보 상세보기 -->
+    <select id="getDietInfo" resultType="DietDTO">
+        SELECT DIET_SEQ, DIET_NAME, DIET_CALORIES
+        FROM DIET
+            AND E.DIET_SEQ = #{diet_seq}
+    </select>
+
+    <!-- 식단 정보 수정 -->
+    <update id="updateDietInfo" parameterType="DietDTO">
+        UPDATE DIET SET
+                        DIET_NAME = #{diet_name},
+                        FOOD_NAME  = #{food_name},
+                        FOOD_NUMBER = #{food_number},
+                        DIET_CALORIES = #{diet_calories}
+        WHERE DIET_SEQ = #{diet_seq}
+    </update>
+
+    <!-- 운동 정보 삭제 -->
+    <delete id="deleteDietInfo" parameterType="DietDTO">
+        DELETE FROM DIET
+        WHERE DIET_SEQ = #{diet_seq}
+    </delete>
+
+</mapper>

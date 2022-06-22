@@ -32,6 +32,8 @@ public class UserInfoController {
 
         return "/login/top";
     }
+
+
     /*
      * 회원가입 화면으로 이동
      */
@@ -96,10 +98,10 @@ public class UserInfoController {
                 url = "/loginPage";
             } else if(res == 2) {
                 msg = "이미 가입된 ID입니다";
-                url = "/register/user";
+                url = "/regUser";
             }else {
                 msg = "오류로 인해 회원가입이 실패했습니다.";
-                url = "/register/user";
+                url = "/regUser";
                 System.out.println("오류로 회원가입이 실패했습니다");
             }
 
@@ -122,7 +124,7 @@ public class UserInfoController {
 
     }
 
-    //로그인 페이지
+    // 회원 로그인 페이지
     @GetMapping(value = "/loginPage")
     public  String userlogin() throws Exception{
 
@@ -130,7 +132,7 @@ public class UserInfoController {
 
     }
 
-    //로그인페이지 로직
+    // 회원 로그인페이지 로직
     @PostMapping(value = "/loginPage1")
     public  String loginPage(HttpServletRequest request, HttpSession session, ModelMap model)
             throws Exception {
@@ -189,43 +191,19 @@ public class UserInfoController {
         return  "/redirect";
         }
 
-    // 아이디 중복확인
-//    @ResponseBody
-//    @RequestMapping(value = "/user/idCheck", method = RequestMethod.POST)
-//    public int idCheck(HttpServletRequest request) throws Exception {
-//        log.info("idCheck 시작");
-//
-//        String userId = request.getParameter("userId");
-//
-//        log.info("TheService.idCheck 시작");
-//        UserInfoDTO idCheck = userInfoService.idCheck(userId);
-//        log.info("TheService.idCheck 종료");
-//
-//        int res = 0;
-//
-//        log.info("if 시작");
-//        if (idCheck != null)
-//            res = 1;
-//
-//        log.info("result : " + res);
-//        log.info("if 종료");
-//
-//        log.info("idCheck 종료");
-//        return res;
-//    }
-
     @GetMapping(value = "/userlogout") // 로그아웃
     public String userLogout(HttpServletRequest request, ModelMap model) {
         log.info(this.getClass().getName() + ".user/userLogout start");
         HttpSession session = request.getSession();
 
-        String url = "/user/login";
+        String url = "/loginPage";
         String msg = "로그아웃 성공";
 
         model.addAttribute("msg", msg);
         model.addAttribute("url", url);
-        return "/user/login";
+        return "/login/userLogin";
     }
+
 
 
 }

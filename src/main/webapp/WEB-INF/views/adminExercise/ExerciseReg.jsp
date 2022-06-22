@@ -35,14 +35,14 @@
     <script type="text/javascript">
         //전송시 유효성 체크
         function doSubmit(f){
-            if(f.name.value == ""){
+            if(f.exercise_name.value == ""){
                 alert("운동명을 입력하시기 바랍니다");
-                f.name.focus();
+                f.exercise_name.focus();
                 return false;
             }
-            if(f.met.value == ""){
+            if(f.exercise_met.value == ""){
                 alert("MET을 입력하시기 바랍니다");
-                f.met.focus();
+                f.exercise_met.focus();
                 return false;
             }
         }
@@ -85,7 +85,7 @@
                     <!--                        </div>-->
                     <!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
                 </div>
-                <a href="" class="btn btn-primary py-2 px-4">Login</a>
+                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Login</a>
             </div>
         </nav>
 
@@ -108,13 +108,13 @@
                     <div>
                         <div style="text-align: center;">
                             <div class="form-floating" style="display: inline-block;">
-                                <input type="text" class="form-control" id="name" placeholder="Exercise Name" style="width: 340px; ">
+                                <input type="text" class="form-control" id="name" name="exercise_name" placeholder="Exercise Name" style="width: 340px; ">
                                 <label for="name">Exercise Name</label>
                             </div>
                         </div>
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
-                                <input type="text" class="form-control" id="met" placeholder="Exercise MET" style="width: 340px; ">
+                                <input type="text" class="form-control" id="met" name="exercise_met" placeholder="Exercise MET" style="width: 340px; ">
                                 <label for="met">Exercise MET</label>
                             </div>
                         </div>

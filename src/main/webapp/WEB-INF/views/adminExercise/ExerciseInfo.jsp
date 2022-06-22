@@ -3,10 +3,10 @@
 <%@ page import="com.balansefit.dto.ExerciseDTO" %>
 <%@ page import="com.balansefit.util.CmmUtil" %>
 <%
-ExerciseDTO rDTO = (ExerciseDTO)request.getAttribute("rDTO");
+    ExerciseDTO rDTO = (ExerciseDTO) request.getAttribute("rDTO");
 
 //공지글 정보를 못불러왔다면, 객체 생성
-    if (rDTO==null){
+    if (rDTO == null) {
         System.out.println("정보 불러오는 것을 실패했습니다");
         rDTO = new ExerciseDTO();
 
@@ -44,7 +44,8 @@ ExerciseDTO rDTO = (ExerciseDTO)request.getAttribute("rDTO");
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap"
+          rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
@@ -53,7 +54,7 @@ ExerciseDTO rDTO = (ExerciseDTO)request.getAttribute("rDTO");
     <!-- Libraries Stylesheet -->
     <link href="../lib/animate/animate.min.css" rel="stylesheet">
     <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -67,7 +68,8 @@ ExerciseDTO rDTO = (ExerciseDTO)request.getAttribute("rDTO");
         //수정하기
         function doEdit() {
             if ("<%=edit%>" == 2) {
-                location.href = "/admin/ExerciseEditInfo?eSeq=<%=CmmUtil.nvl(rDTO.getExercise_seq())%>";
+                alert("수정하기 이동");
+                location.href = "/admin/ExerciseUpdate?eSeq=<%=CmmUtil.nvl(rDTO.getExercise_seq())%>";
 
             } else if ("<%=edit%>" == 3) {
                 alert("로그인 하시길 바랍니다.");
@@ -82,7 +84,7 @@ ExerciseDTO rDTO = (ExerciseDTO)request.getAttribute("rDTO");
         function doDelete() {
             if ("<%=edit%>" == 2) {
                 if (confirm("작성한 글을 삭제하시겠습니까?")) {
-                    location.href = "/admin/ExerciseDelete?nSeq=<%=CmmUtil.nvl(rDTO.getExercise_seq())%>";
+                    location.href = "/admin/ExerciseDelete?eSeq=<%=CmmUtil.nvl(rDTO.getExercise_seq())%>";
 
                 }
 
@@ -105,7 +107,8 @@ ExerciseDTO rDTO = (ExerciseDTO)request.getAttribute("rDTO");
 <body>
 <div class="container-xxl bg-white p-0">
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -139,7 +142,7 @@ ExerciseDTO rDTO = (ExerciseDTO)request.getAttribute("rDTO");
                     <!--                        </div>-->
                     <!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
                 </div>
-                <a href="" class="btn btn-primary py-2 px-4">Login</a>
+                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Login</a>
             </div>
         </nav>
 
@@ -163,31 +166,39 @@ ExerciseDTO rDTO = (ExerciseDTO)request.getAttribute("rDTO");
                         <div style="text-align: center;">
                             <div class="form-floating" style="display: inline-block;">
                                 <div class="form-control" id="name" style="width: 340px;">
-                                    <%=CmmUtil.nvl(rDTO.getExercise_name())%></div>
+                                    <%=CmmUtil.nvl(rDTO.getExercise_name())%>
+                                </div>
                                 <label for="name">Exercise Name</label>
                             </div>
                         </div>
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <div class="form-control" id="met" style="width: 340px;">
-                                    <%=CmmUtil.nvl(rDTO.getExercise_met())%></div>
+                                    <%=CmmUtil.nvl(rDTO.getExercise_met())%>
+                                </div>
                                 <label for="met">Exercise MET</label>
                             </div>
                         </div>
 
                         <div style="text-align: center;margin-top: 25px;">
-                            <a href="javascript:doEdit();">
                             <div style="display: inline-block;width: 100px;">
-                                <button class="btn btn-primary w-100" type="submit">수정</button>
-                            </div></a>
-                            <a href="javascript:doDelete();">
+<%--                                <a href="/admin/ExerciseEditInfo">--%>
+<%--                                <a href="javascript:doEdit();">--%>
+                                    <button class="btn btn-primary w-100" onclick="doEdit()">수정</button>
+<%--                                </a>--%>
+                            </div>
+
                             <div style="display: inline-block;width: 100px;">
-                                <button class="btn btn-primary w-100" type="submit">삭제</button>
-                            </div></a>
-                            <a href="javascript:doList();">
+<%--                                <a href="javascript:doDelete();">--%>
+                                    <button class="btn btn-primary w-100" onclick="doDelete()">삭제</button>
+<%--                                </a>--%>
+                            </div>
+
                             <div style="display: inline-block;width: 100px;">
-                                <button class="btn btn-primary w-100" type="submit">목록</button>
-                            </div></a>
+<%--                                <a href="javascript:doList();">--%>
+                                    <button class="btn btn-primary w-100" onclick="doList()">목록</button>
+<%--                                </a>--%>
+                            </div>
                         </div>
 
                     </div>

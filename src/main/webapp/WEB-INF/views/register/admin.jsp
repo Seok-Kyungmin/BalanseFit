@@ -54,55 +54,29 @@
     <script type="text/javascript">
 
         //회원가입 정보의 유효성 체크하기
-        function doRegUserCheck(f){
+        function doRegAdminCheck(f){
 
-            if (f.user_auth.value==""){
-                alert("권한을 선택하세요.");
-                f.user_auth.focus();
-                return false;
-            }
-            if (f.user_id.value==""){
+            if (f.adm_id.value==""){
                 alert("아이디를 입력하세요.");
-                f.user_id.focus();
+                f.adm_id.focus();
                 return false;
             }
 
-            if (f.user_pw.value==""){
+            if (f.adm_pw.value==""){
                 alert("비밀번호를 입력하세요");
-                f.user_pw.focus();
+                f.adm_pw.focus();
                 return false;
             }
 
-            if (f.user_name.value==""){
+            if (f.adm_name.value==""){
                 alert("닉네임을 입력하세요");
-                f.user_name.focus();
+                f.adm_name.focus();
                 return false;
             }
 
-            if (f.user_email.value==""){
+            if (f.adm_email.value==""){
                 alert("이메일을 입력하세요");
-                f.user_email.focus();
-                return false;
-            }
-
-            if (f.user_age.value==""){
-                alert("나이를 입력하세요");
-                f.user_age.focus();
-                return false;
-            }
-            if (f.user_gender.value==""){
-                alert("성별을 입력하세요");
-                f.user_gender.focus();
-                return false;
-            }
-            if (f.user_height.value==""){
-                alert("키를 입력하세요");
-                f.user_height.focus();
-                return false;
-            }
-            if (f.user_weight.value==""){
-                alert("몸무게를 입력하세요");
-                f.user_weight.focus();
+                f.adm_email.focus();
                 return false;
             }
 
@@ -180,10 +154,12 @@
                         </a>
                     </div>
                     <!-- /Logo -->
-                    <h4 class="mb-2">회원가입 🚀</h4>
+                    <h4 class="mb-2">관리자 회원가입 🚀</h4>
                     <!--              <p class="mb-4">Make your app management easy and fun!</p>-->
 
-                    <form id="formAuthentication" class="mb-3" method="post" action="/regAdmin1" onsubmit="return doRegUserCheck(this);">
+                    <form id="formAuthentication" class="mb-3" method="post" action="/regAdmin1" onsubmit="return doRegAdminCheck(this);">
+
+                        <input type="hidden" id="authCheck" name="user_auth" value="1">
 
                         <div class="mb-3">
                             <label for="id" class="form-label">아이디</label>
@@ -191,7 +167,7 @@
                                     type="text"
                                     class="form-control"
                                     id="id"
-                                    name="user_id"
+                                    name="adm_id"
                                     placeholder="nickname"
                                     autofocus
                             />
@@ -202,7 +178,7 @@
                                     type="text"
                                     class="form-control"
                                     id="email"
-                                    name="user_email"
+                                    name="adm_email"
                                     placeholder="email" />
                         </div>
                         <div class="mb-3 form-password-toggle">
@@ -212,7 +188,7 @@
                                         type="password"
                                         id="password"
                                         class="form-control"
-                                        name="user_pw"
+                                        name="adm_pw"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password"
                                 />
@@ -226,7 +202,7 @@
                                         type="password"
                                         id="password2"
                                         class="form-control"
-                                        name="user_pw2"
+                                        name="adm_pw2"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password"
                                 />
@@ -234,54 +210,15 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="user_name" class="form-label">닉네임</label>
+                            <label for="adm_name" class="form-label">닉네임</label>
                             <input
                                     type="text"
                                     class="form-control"
-                                    id="user_name"
-                                    name="user_name"
+                                    id="adm_name"
+                                    name="adm_name"
                                     placeholder="nickname"
                                     autofocus
                             />
-                        </div>
-                        <div class="mb-3">
-                            <label for=age class="form-label">나이</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="age"
-                                    name="user_age"
-                                    placeholder="age" />
-                        </div>
-                        <div class="mb-3">
-                            <%--                            <label for=gender class="form-label">성별</label>--%>
-                            <%--                            <input--%>
-                            <%--                                    type="text"--%>
-                            <%--                                    class="form-control"--%>
-                            <%--                                    id="gender"--%>
-                            <%--                                    name="user_gender"--%>
-                            <%--                                    placeholder="gender" />--%>
-                            <label class="form-label">성별</label>
-                            <input type="radio" id="man" name="user_gender" value="남자" style="width: 12px;height: 12px;margin-left: 25px;"> 남자
-                            <input type="radio" id="woman" name="user_gender" value="여자" style="width: 12px;height: 12px; margin-left: 12px;"> 여자
-                        </div>
-                        <div class="mb-3">
-                            <label for="height" class="form-label">키</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="height"
-                                    name="user_height"
-                                    placeholder="height" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="weight" class="form-label">몸무게</label>
-                            <input
-                                    type="text"
-                                    class="form-control"
-                                    id="weight"
-                                    name="user_weight"
-                                    placeholder="weight" />
                         </div>
 
                         <div class="mb-3">

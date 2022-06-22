@@ -37,6 +37,8 @@ public class FoodController {
         // 조회된 리스트 결과값 넣어주기
         model.addAttribute("rList", rList);
 
+        log.info(String.valueOf(rList));
+
         log.info(this.getClass().getName()+ ".FoodList end!");
 
         return "/adminFood/Food";
@@ -48,8 +50,8 @@ public class FoodController {
     @GetMapping(value = "admin/FoodReg")
     public String FoodReg() {
 
-        log.info(this.getClass().getName()+ ".FoodList start!");
-        log.info(this.getClass().getName()+ ".FoodList end!");
+        log.info(this.getClass().getName()+ ".FoodReg start!");
+        log.info(this.getClass().getName()+ ".FoodReg end!");
 
         return "/adminFood/FoodReq";
     }
@@ -67,7 +69,7 @@ public class FoodController {
 
         try{
             // 운동 정보 추가하기 위해 사용되는 from객체의 하위 input 객체 등을 받아오기 위해 사용함
-            String user_id = CmmUtil.nvl((String) session.getAttribute("SESSION_USER_ID"));
+//            String user_id = CmmUtil.nvl((String) session.getAttribute("SESSION_USER_ID"));
             String food_name = CmmUtil.nvl(request.getParameter("food_name")); // 음식명
             String food_calories = CmmUtil.nvl(request.getParameter("food_calories")); // 칼로리
             String food_carbohydrate = CmmUtil.nvl(request.getParameter("food_carbohydrate")); // 탄수화물
@@ -79,8 +81,8 @@ public class FoodController {
 
 
             // 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함 반드시 작성할 것
-            log.info("user_id : " + user_id);
-            log.info("exercise_name : " + food_name);
+//            log.info("user_id : " + user_id);
+            log.info("food_name : " + food_name);
             log.info("food_calories : " + food_calories);
             log.info("food_carbohydrate : " + food_carbohydrate);
             log.info("food_protein : " + food_protein);
@@ -92,7 +94,7 @@ public class FoodController {
 
             FoodDTO pDTO = new FoodDTO();
 
-            pDTO.setUser_id(user_id);
+//            pDTO.setUser_id(user_id);
             pDTO.setFood_name(food_name);
             pDTO.setFood_calories(food_calories);
             pDTO.setFood_carbohydrate(food_carbohydrate);
@@ -177,8 +179,6 @@ public class FoodController {
         return "/adminFood/FoodInfo";
     }
 
-
-
     /**
      * 게시판 글 삭제
      */
@@ -223,5 +223,6 @@ public class FoodController {
         return "/redirect";
     }
 
+    //
 }
 

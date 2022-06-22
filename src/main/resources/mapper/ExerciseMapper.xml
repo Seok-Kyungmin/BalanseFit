@@ -22,11 +22,9 @@
 
     <!-- 운동 정보 상세보기 -->
     <select id="getExerciseInfo" resultType="ExerciseDTO">
-        SELECT E.EXERCISE_SEQ, E.EXERCISE_NAME, E.EXERCISE_MET, U.USER_NAME, E.USER_ID,
-               DATE_FORMAT(E.REG_DT, '%Y-%m-%d') AS REG_DT
-        FROM EXERCISE E, USER_INFO U
-        WHERE E.USER_ID = U.USER_ID
-        AND E.EXERCISE_SEQ = #{exercise_seq}
+        SELECT EXERCISE_SEQ, EXERCISE_NAME, EXERCISE_MET
+        FROM EXERCISE
+        WHERE EXERCISE_SEQ = #{exercise_seq}
     </select>
 
     <!-- 운동 정보 수정 -->

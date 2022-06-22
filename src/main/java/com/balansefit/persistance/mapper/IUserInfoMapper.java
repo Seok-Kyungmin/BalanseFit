@@ -11,6 +11,7 @@ public interface IUserInfoMapper {
 
     // 로그인 체크
     UserInfoDTO getUserLoginCheck(UserInfoDTO tDTO) throws Exception;
+
     // 회원가입 아이디 중복확인
     UserInfoDTO getUserExists(UserInfoDTO tDTO) throws Exception;
 

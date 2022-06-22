@@ -3,6 +3,26 @@
 
 <mapper namespace="com.balansefit.persistance.mapper.IAdminMapper">
 
+    <!-- 아이디로 회원 가입 중복 방지하기 -->
+    <select id="getAdminExists" parameterType="AdminInfoDTO" resultType="AdminInfoDTO">
+        SELECT IF(COUNT(1) = 0, 'N', 'Y') AS EXISTS_YN
+        FROM ADMIN_INFO
+        WHERE ADM_ID = #{adm_id}
+    </select>
+
+    <!-- 이메일로 회원 가입 중복 방지하기 -->
+    <select id="getAdminExists2" parameterType="AdminInfoDTO" resultType="AdminInfoDTO">
+        SELECT IF(COUNT(1) = 0, 'N', 'Y') AS EXISTS_YN
+        FROM ADMIN_INFO
+        WHERE ADM_EMAIL = #{adm_email}
+    </select>
+
+    <!---회원가입 로그인하기 -->
+    <select id="getAdminLoginCheck" parameterType="AdminInfoDTO" resultType="AdminInfoDTO">
+        SELECT ADM_ID,ADM_PW FROM ADMIN_INFO
+        WHERE ADM_ID = #{adm_id} AND ADM_PW = #{adm_pw}
+    </select>
+
     <!-- 회원가입 로직 -->
     <insert id="insertAdmin" parameterType="AdminInfoDTO">
         INSERT INTO ADMIN_INFO (
@@ -17,18 +37,4 @@
                      #{adm_email}
                  )
     </insert>
-    <!-- 회원 가입 중복 방지하기 -->
-    <select id="getAdminExists" parameterType="AdminInfoDTO" resultType="AdminInfoDTO">
-        SELECT IF(COUNT(1) = 0, 'N', 'Y') AS EXISTS_YN
-        FROM ADMIN_INFO
-        WHERE ADM_ID = #{adm_id}
-    </select>
-
-    <!---회원가입 로그인하기 -->
-    <select id="getAdminLogin" parameterType="AdminInfoDTO" resultType="AdminInfoDTO">
-        SELECT ADM_ID,ADM_PW FROM ADMIN_INFO
-        WHERE ADM_ID = #{adm_id} AND ADM_PW = #{adm_pw}
-    </select>
-
 </mapper>
-

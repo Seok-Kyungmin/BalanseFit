@@ -18,13 +18,13 @@ public class AdminService implements IAdminService {
 
     //로그인
     @Override
-    public int AdminLoginCheck(AdminInfoDTO pDTO) throws Exception {
+    public int getAdminLoginCheck(AdminInfoDTO pDTO) throws Exception {
 
-        log.info(this.getClass().getName() + "AdminService : AdminLogin 시작");
-
+        log.info(this.getClass().getName() + "AdminService : getAdminLoginCheck 시작");
+        //성공: 1  실패: 0
         int res = 0;
 
-        AdminInfoDTO rDTO = AdminMapper.getAdminLogin(pDTO);
+        AdminInfoDTO rDTO = AdminMapper.getAdminLoginCheck(pDTO);
 
         if(rDTO == null) {
             log.info(this.getClass().getName() + "로그인 실패");
@@ -34,8 +34,7 @@ public class AdminService implements IAdminService {
             res = 1;
         }
 
-        log.info(this.getClass().getName() + "AdminService : AdminLogin 끝");
-
+        log.info(this.getClass().getName() + "AdminService : getAdminLoginCheck 끝");
 
         return res;
     }

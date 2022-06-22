@@ -8,6 +8,7 @@ public interface IUserInfoService {
 	//UserInfoDTO getUserInfo(UserInfoDTO uDTO) throws Exception;
 
 	// 회원 가입하기(회원정보 등록하기)
+
 	//로그인
 	int getUserLoginCheck(UserInfoDTO tDTO) throws Exception;
 

@@ -58,22 +58,23 @@
 
             if ("<%=access%>" == "1") {
                 alert("작성자만 수정할 수 있습니다.");
-                location.href = "/notice/NoticeList";
+                location.href = "/admin/ExerciseList";
 
             }
         }
 
         //전송시 유효성 체크
         function doSubmit(f) {
+
             if (f.exercise_name.value == "") {
                 alert("운동명을 입력하시기 바랍니다.");
-                f.name.focus();
+                f.exercise_name.focus();
                 return false;
             }
 
             if (f.exercise_met.value == "") {
                 alert("MET을 입력하시기 바랍니다.");
-                f.met.focus();
+                f.exercise_met.focus();
                 return false;
             }
         }
@@ -118,7 +119,7 @@
                     <!--                        </div>-->
                     <!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
                 </div>
-                <a href="" class="btn btn-primary py-2 px-4">Login</a>
+                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Login</a>
             </div>
         </nav>
 

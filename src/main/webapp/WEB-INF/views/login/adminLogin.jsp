@@ -67,15 +67,15 @@
     <script src="../assets/js/config.js"></script>
 
     <script type="text/javascript">
-        function doLoginUserCheck(f){
-            if (f.user_id.value==""){
+        function doLoginAdminCheck(f){
+            if (f.adm_id.value==""){
                 alert("아이디를 입력하세요");
-                f.user_id.focus();
+                f.adm_id.focus();
                 return false;
             }
-            if (f.user_pw.value==""){
+            if (f.adm_pw.value==""){
                 alert("비밀번호를 입력하세요");
-                f.user_pw.focus();
+                f.adm_pw.focus();
                 return false;
             }
         }
@@ -154,14 +154,14 @@
                     </div>
                     <!-- /Logo -->
 
-                    <form id="formAuthentication" class="mb-3" method="post" action="/loginPage1" onsubmit="return doLoginUserCheck(this)">
+                    <form id="formAuthentication" class="mb-3" method="post" action="/adminLoginPage1" onsubmit="return doLoginAdminCheck(this)">
                         <div class="mb-3">
                             <label for="id" class="form-label">아이디</label>
                             <input
                                     type="text"
                                     class="form-control"
                                     id="id"
-                                    name="user_id"
+                                    name="adm_id"
                                     placeholder="Enter your Id"
                                     autofocus
                             />
@@ -178,7 +178,7 @@
                                         type="password"
                                         id="password"
                                         class="form-control"
-                                        name="user_pw"
+                                        name="adm_pw"
                                         placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                                         aria-describedby="password"
                                 />
@@ -192,14 +192,14 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <a href="/mypage">
+                            <a href="/adminIndex">
                             <button class="btn btn-primary d-grid w-100" type="submit">로그인</button>
                             </a>
                         </div>
                     </form>
 
                     <p class="text-center">
-                        <a href="/regUser">
+                        <a href="/regAdmin">
                             <span>회원가입</span>
                         </a>
                     </p>

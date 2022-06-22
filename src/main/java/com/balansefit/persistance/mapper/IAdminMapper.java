@@ -6,10 +6,14 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface IAdminMapper {
 
-    //회원가입 중복확인
-    AdminInfoDTO getAdminExists(AdminInfoDTO pDTO) throws Exception;
+    //관리자 로그인
+    AdminInfoDTO getAdminLoginCheck(AdminInfoDTO tDTO) throws Exception;
 
-    AdminInfoDTO getAdminLogin(AdminInfoDTO pDTO) throws Exception;
-    //판매자 회원가입
-    int insertAdmin(AdminInfoDTO pDTO) throws Exception;
+    // 회원가입 아이디 중복확인
+    AdminInfoDTO getAdminExists(AdminInfoDTO tDTO) throws Exception;
+
+    // 회원가입 이메일 중복확인
+    AdminInfoDTO getAdminExists2(AdminInfoDTO tDTO) throws Exception;
+    //유저 회원가입
+    int insertAdmin(AdminInfoDTO tDTO) throws Exception;
 }

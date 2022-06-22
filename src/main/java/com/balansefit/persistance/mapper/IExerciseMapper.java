@@ -12,14 +12,14 @@ public interface IExerciseMapper {
     List<ExerciseDTO> getExerciseList() throws Exception;
 
     // 게시판 글 등록
-    void insertExerciseInfo(ExerciseDTO eDTO) throws Exception;
+    void insertExerciseInfo(ExerciseDTO pDTO) throws Exception;
 
     // 게시판 상세보기
-    ExerciseDTO getExerciseInfo(ExerciseDTO eDTO) throws Exception;
+    ExerciseDTO getExerciseInfo(ExerciseDTO pDTO) throws Exception;
 
     // 게시판 글 수정
-    void updateExerciseInfo(ExerciseDTO eDTO) throws Exception;
+    void updateExerciseInfo(ExerciseDTO pDTO) throws Exception;
 
     // 게시판 글 삭제
-    void deleteExerciseInfo(ExerciseDTO eDTO) throws Exception;
+    void deleteExerciseInfo(ExerciseDTO pDTO) throws Exception;
 }

@@ -4,9 +4,9 @@ import com.balansefit.dto.AdminInfoDTO;
 
 public interface IAdminService {
 
-    //로그인
-    int AdminLoginCheck(AdminInfoDTO pDTO) throws Exception;
+    //관리자 로그인
+    int getAdminLoginCheck(AdminInfoDTO tDTO) throws Exception;
 
     //회원가입
-    int insertAdmin(AdminInfoDTO pDTO) throws Exception;
+    int insertAdmin(AdminInfoDTO tDTO) throws Exception;
 }

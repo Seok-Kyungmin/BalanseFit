@@ -15,7 +15,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="../img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +39,7 @@
 
     <link href="../css/exerciseInfo.css" rel="stylesheet">
     <%
-        //session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
+        session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
 
         List<ExerciseDTO> eList = (List<ExerciseDTO>) request.getAttribute("eList");
 
@@ -97,7 +97,7 @@
                     <!--                        </div>-->
                     <!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
                 </div>
-                <a href="" class="btn btn-primary py-2 px-4">Login</a>
+                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Login</a>
             </div>
         </nav>
 

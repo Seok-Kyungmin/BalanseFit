@@ -56,11 +56,6 @@
         //회원가입 정보의 유효성 체크하기
         function doRegUserCheck(f){
 
-            if (f.user_auth.value==""){
-                alert("권한을 선택하세요.");
-                f.user_auth.focus();
-                return false;
-            }
             if (f.user_id.value==""){
                 alert("아이디를 입력하세요.");
                 f.user_id.focus();
@@ -184,6 +179,8 @@
                     <!--              <p class="mb-4">Make your app management easy and fun!</p>-->
 
                     <form id="formAuthentication" class="mb-3" method="post" action="/regUser1" onsubmit="return doRegUserCheck(this);">
+
+                        <input type="hidden" id="authCheck" name="user_auth" value="0">
 
                         <div class="mb-3">
                             <label for="id" class="form-label">아이디</label>

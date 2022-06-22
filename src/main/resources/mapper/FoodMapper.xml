@@ -26,13 +26,7 @@
     <select id="getFoodList" resultType="FoodDTO">
         SELECT FOOD_SEQ,
                FOOD_NAME,
-               FOOD_CALORIES,
-               FOOD_CARBOHYDRATE,
-               FOOD_PROTEIN,
-               FOOD_FAT,
-               FOOD_SUGAR,
-               FOOD_NATRIUM,
-               FOOD_WEIGHT
+               FOOD_CALORIES
         FROM FOOD_INFO
         ORDER BY FOOD_SEQ ASC
     </select>
@@ -40,30 +34,24 @@
     <!-- 식품 추가 -->
     <insert id="insertFoodInfo" parameterType="FoodDTO">
         INSERT INTO FOOD_INFO(FOOD_SEQ, FOOD_NAME, FOOD_CALORIES, FOOD_CARBOHYDRATE, FOOD_PROTEIN, FOOD_FAT,
-                              FOOD_SUGAR, FOOD_NATRIUM, FOOD_WEIGHT, USER_ID, REG_ID, REG_DT, CHG_ID, CHG_DT)
-        VALUES ((SELECT NULLIF(MAX(A.FOOD_SEQ), 0) + 1 FROM FOOD_INFO A),
+                              FOOD_SUGAR, FOOD_NATRIUM, FOOD_WEIGHT )
+--                               USER_ID, REG_ID, REG_DT, CHG_ID, CHG_DT)
+        VALUES (
+                (SELECT NULLIF(MAX(A.FOOD_SEQ), 0) + 1 FROM FOOD_INFO A),
                 #{food_name}, #{food_calories}, #{food_carbohydrate}, #{food_protein}, #{food_fat},
-                #{food_sugar}, #{food_natrium}, #{food_weight}, #{user_id}, 0, #{user_id}, SYSDATE(), #{user_id},
-                SYSDATE())
+                #{food_sugar}, #{food_natrium}, #{food_weight})
+--                 , #{user_id}, 0, #{user_id}, SYSDATE(), #{user_id},SYSDATE())
     </insert>
 
     <!-- 식품 상세보기 -->
     <select id="getFoodInfo" resultType="FoodDTO">
-        SELECT F.FOOD_SEQ,
-               F.FOOD_NAME,
-               F.FOOD_CALORIES,
-               F.FOOD_CARBOHYDRATE,
-               F.FOOD_PROTEIN,
-               F.FOOD_FAT,
-               F.FOOD_SUGAR,
-               F.FOOD_NATRIUM,
-               F.FOOD_WEIGHT,
-               F.USER_ID,
-               U.USER_NAME,
-               DATE_FORMAT(F.REG_DT, '%Y-%m-%d') AS REG_DT
-        FROM FOOD_INFO F,
-             USER_INFO U
-        WHERE F.USER_ID = U.USER_ID
+        SELECT F.FOOD_SEQ, F.FOOD_NAME, F.FOOD_CALORIES, F.FOOD_CARBOHYDRATE, F.FOOD_PROTEIN,
+               F.FOOD_FAT, F.FOOD_SUGAR, F.FOOD_NATRIUM,F.FOOD_WEIGHT
+--                F.USER_ID,
+--                U.USER_NAME,
+--                DATE_FORMAT(F.REG_DT, '%Y-%m-%d') AS REG_DT
+        FROM FOOD_INFO F
+--         WHERE F.USER_ID = U.USER_ID
           AND F.FOOD_SEG = #{food_seq}
     </select>
 
@@ -71,6 +59,5 @@
     <delete id="deleteFoodInfo" parameterType="FoodDTO">
         DELETE FROM FOOD_INFO
         WHERE FOOD_SEQ = #{food_seq}
-
     </delete>
 </mapper>
