@@ -29,10 +29,12 @@
 
     System.out.println("user_id : " + CmmUtil.nvl(rDTO.getUser_id()));
     System.out.println("ss_user_id : " + ss_user_id);
+    String user_id =CmmUtil.nvl(rDTO.getUser_id());
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -68,10 +70,14 @@
         //수정하기
         function doEdit() {
             if ("<%=edit%>" == 2) {
+                let edit= <%=edit%>;
+                console.log(edit);
                 alert("수정하기 이동");
-                location.href = "/admin/ExerciseUpdate?eSeq=<%=CmmUtil.nvl(rDTO.getExercise_seq())%>";
-
-            } else if ("<%=edit%>" == 3) {
+                let s = "/admin/ExerciseEdit?eSeq=<%=CmmUtil.nvl(rDTO.getExercise_seq())%>&user_id=<%=user_id%>";
+                alert(s)
+                location.href = s;
+            }
+            else if ("<%=edit%>" == 3) {
                 alert("로그인 하시길 바랍니다.");
 
             } else {
@@ -85,10 +91,9 @@
             if ("<%=edit%>" == 2) {
                 if (confirm("작성한 글을 삭제하시겠습니까?")) {
                     location.href = "/admin/ExerciseDelete?eSeq=<%=CmmUtil.nvl(rDTO.getExercise_seq())%>";
-
                 }
-
-            } else if ("<%=edit%>" == 3) {
+            }
+            else if ("<%=edit%>" == 3) {
                 alert("로그인 하시길 바랍니다.");
 
             } else {
@@ -99,7 +104,7 @@
 
         //목록으로 이동
         function doList() {
-            location.href = "/admin/ExerciseList";
+            window.location.href = "/admin/ExerciseList";
 
         }
     </script>
@@ -128,10 +133,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="/index" class="nav-item nav-link">Home</a>
                     <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
                     <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
-                    <a href="food.html" class="nav-item nav-link">Food</a>
+                    <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
                     <!--                        <div class="nav-item dropdown">-->
                     <!--                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>-->
                     <!--                            <div class="dropdown-menu m-0">-->
@@ -183,21 +188,21 @@
                         <div style="text-align: center;margin-top: 25px;">
                             <div style="display: inline-block;width: 100px;">
 <%--                                <a href="/admin/ExerciseEditInfo">--%>
-<%--                                <a href="javascript:doEdit();">--%>
-                                    <button class="btn btn-primary w-100" onclick="doEdit()">수정</button>
-<%--                                </a>--%>
+                                <a href="javascript:doEdit();">
+                                    <button type="button" class="btn btn-primary w-100" onclick="doEdit()">수정</button>
+                                </a>
                             </div>
 
                             <div style="display: inline-block;width: 100px;">
 <%--                                <a href="javascript:doDelete();">--%>
-                                    <button class="btn btn-primary w-100" onclick="doDelete()">삭제</button>
+                                    <button type="button" class="btn btn-primary w-100" onclick="doDelete()">삭제</button>
 <%--                                </a>--%>
                             </div>
 
                             <div style="display: inline-block;width: 100px;">
-<%--                                <a href="javascript:doList();">--%>
-                                    <button class="btn btn-primary w-100" onclick="doList()">목록</button>
-<%--                                </a>--%>
+                                <a href="javascript:doList();">
+                                    <button type="button" class="btn btn-primary w-100" onclick="doList()">목록</button>
+                                </a>
                             </div>
                         </div>
 

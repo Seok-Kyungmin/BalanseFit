@@ -12,14 +12,18 @@ public interface IDietMapper {
     List<DietDTO> getDietList() throws Exception;
 
     // 게시판 글 등록
-    void insertDietInfo(DietDTO eDTO) throws Exception;
+    void InsertDietInfo(DietDTO dDTO) throws Exception;
 
     // 게시판 상세보기
     DietDTO getDietInfo(DietDTO dDTO) throws Exception;
 
     // 게시판 글 수정
-    void updateDietInfo(DietDTO eDTO) throws Exception;
+    void updateDietInfo(DietDTO dDTO) throws Exception;
 
     // 게시판 글 삭제
-    void deleteDietInfo(DietDTO eDTO) throws Exception;
+    void deleteDietInfo(DietDTO dDTO) throws Exception;
+
+    int InsertDietFileInfo(DietDTO dDTO) throws Exception;
+
+    List<DietDTO> foodSearchList(DietDTO dDTO) throws Exception;
 }

@@ -17,5 +17,5 @@ public interface IMyPageService {
     void updateUserInfo(UserInfoDTO uDTO) throws Exception;
 
     // 몸무게 리스트 가져오기
-    List<UserWeightDTO> getWeightList() throws Exception;
+    List<UserWeightDTO> getWeightList(UserWeightDTO wDTO) throws Exception;
 }

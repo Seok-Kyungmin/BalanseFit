@@ -12,13 +12,17 @@ public interface IUserInfoMapper {
     // 로그인 체크
     UserInfoDTO getUserLoginCheck(UserInfoDTO tDTO) throws Exception;
 
+    //관리자 로그인
+    UserInfoDTO getAdminLoginCheck(UserInfoDTO tDTO) throws Exception;
+
     // 회원가입 아이디 중복확인
     UserInfoDTO getUserExists(UserInfoDTO tDTO) throws Exception;
 
     // 회원가입 이메일 중복확인
-    UserInfoDTO getUserExists2(UserInfoDTO tDTO) throws Exception;
+    int getUserExists2(UserInfoDTO tDTO) throws Exception;
     //유저 회원가입
     int insertUser(UserInfoDTO tDTO) throws Exception;
 
+    UserInfoDTO findPW (UserInfoDTO tDTO) throws Exception;
 
 }

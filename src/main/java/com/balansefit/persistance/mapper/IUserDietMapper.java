@@ -1,6 +1,5 @@
 package com.balansefit.persistance.mapper;
 
-import com.balansefit.dto.FoodDTO;
 import com.balansefit.dto.UserDietDTO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -25,12 +24,5 @@ public interface IUserDietMapper {
     // 게시판 글 삭제
     void deleteUserDietInfo(UserDietDTO dDTO) throws Exception;
 
-    // 식품 리스트
-    List<FoodDTO> getUserFoodList() throws Exception;
-
-    List<FoodDTO> findFood(String keyword);
-
-    // 음식 정보 검색
-//    List<FoodDTO> findFood(FoodDTO fDTO) throws Exception;
 
 }

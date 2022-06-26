@@ -18,7 +18,7 @@
         VALUES (
                        (SELECT NULLIF (MAX(A.DIET_SEQ),0)+1 FROM DIET A),
                        #{diet_name}, #{food_name}, #{food_number}, #{diet_calories},
-                       #{user_id}, 0, #{user_id}, SYSDATE(), #{user_id}, SYSDATE())
+                       #{user_id}, #{user_id}, SYSDATE(), #{user_id}, SYSDATE())
     </insert>
 
     <!-- 유저 식단 정보 상세보기 -->
@@ -54,5 +54,19 @@
         FROM FOOD_INFO
         ORDER BY FOOD_SEQ ASC
     </select>
+
+<!--    &lt;!&ndash; 검색 &ndash;&gt;-->
+<!--    <select id="foodSearchList" parameterType="FOOD_DTO">-->
+<!--        SELECT FOOD_SEQ, FOOD_NAME-->
+<!--        FROM FOOD_INFO-->
+<!--        <choose>-->
+<!--            <when test="type !=null and type.equals('FOOD_SEQ')">-->
+<!--            AND FOOD_SEQ = LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            </when>-->
+<!--            <when test="type !=null and type.equals('FOOD_NAME')">-->
+<!--            AND FOOD_NAME = LIKE CONCAT('%', #{keyword}, '%')-->
+<!--            </when>-->
+<!--        </choose>-->
+<!--    </select>-->
 
 </mapper>

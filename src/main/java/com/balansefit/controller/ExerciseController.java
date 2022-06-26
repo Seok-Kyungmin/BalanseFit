@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -62,7 +62,7 @@ public class ExerciseController {
     /**
      * 게시판 글 등록
      */
-    @RequestMapping(value = "admin/ExerciseInsert")
+    @PostMapping(value = "admin/ExerciseInsert")
     public String ExerciseInsert(HttpSession session, HttpServletRequest request, ModelMap model) {
 
         log.info(this.getClass().getName()+".ExerciseInsert start!");
@@ -103,13 +103,14 @@ public class ExerciseController {
             e.printStackTrace();
 
         } finally {
-            log.info(this.getClass().getName() + ".ExerciseInsert end!");
+            log.info(this.getClass().getName() + "finally.ExerciseInsert end!");
 
             // 결과 메시지 전달하기
             model.addAttribute("msg", msg);
             model.addAttribute("url", url);
 
         }
+        log.info((String) model.getAttribute("url"));
         return "/redirect";
     }
 
@@ -124,8 +125,7 @@ public class ExerciseController {
         String msg = "";
 
         try {
-            String eSeq = CmmUtil.nvl(request.getParameter("eSeq"));
-
+            String eSeq = request.getParameter("eSeq");
             log.info("eSeq : " + eSeq);
 
             ExerciseDTO pDTO = new ExerciseDTO();
@@ -137,11 +137,18 @@ public class ExerciseController {
             if (rDTO == null) {
                 rDTO = new ExerciseDTO();
             }
+            String session_id = CmmUtil.nvl(request.getParameter("SESSION_USER_ID"));
 
             log.info("getExerciseInfo success!!");
+            log.info(this.getClass().getName()+" rDTO.getUser_id() "+rDTO.getUser_id());
+            log.info(this.getClass().getName()+" session_id "+session_id);
+            log.info(this.getClass().getName() + " Exercise_met : " +rDTO.getExercise_met());
+            log.info(this.getClass().getName() + " Exercise_name : " +rDTO.getExercise_name());
+            log.info(this.getClass().getName() + " Exercise_seq : " +rDTO.getExercise_seq());
 
             // 조회된 리스트 결과값 넣어주기
             model.addAttribute("rDTO", rDTO);
+            log.info("rDTO 값은?"+rDTO.getUser_id());
 
         } catch (Exception e) {
 
@@ -149,21 +156,41 @@ public class ExerciseController {
             log.info(e.toString());
             e.printStackTrace();
         }finally {
-            log.info(this.getClass().getName() + ".ExerciseInsert end!");
+            log.info(this.getClass().getName() + "finally.ExerciseInsert end!");
 
             // 결과 메시지 전달
             model.addAttribute("msg", msg);
 
         }
-        log.info(this.getClass().getName() + ".ExerciseInfo end!");
 
+        log.info((String) model.getAttribute("url"));
         return "/adminExercise/ExerciseInfo";
+    }
+
+    /**
+     * 운동정보 수정 페이지 이동
+     */
+    @GetMapping(value = "admin/ExerciseEdit")
+    public String ExerciseEdit(HttpServletRequest request, ModelMap model) {
+
+        log.info(this.getClass().getName()+".ExerciseEdit start!");
+        String exercise_seq = CmmUtil.nvl(request.getParameter("eSeq"));
+        String user_id = CmmUtil.nvl(request.getParameter("user_id"));
+        log.info(this.getClass().getName()+".ExerciseEdit exercise_seq! "+exercise_seq);
+        log.info(this.getClass().getName()+".ExerciseEdit user_id! "+exercise_seq);
+
+        log.info(this.getClass().getName()+".ExerciseEdit end!");
+
+        model.addAttribute("exercise_seq", exercise_seq);
+        model.addAttribute("user_id", user_id);
+
+        return "/adminExercise/ExerciseEditInfo";
     }
 
     /**
      * 게시판 글 수정
      */
-    @RequestMapping(value = "admin/ExerciseUpdate")
+    @PostMapping(value = "admin/ExerciseUpdate")
     public String ExerciseUpdate(HttpSession session, HttpServletRequest request, ModelMap model) {
 
         log.info(this.getClass().getName()+".ExerciseUpdate start!");
@@ -203,20 +230,21 @@ public class ExerciseController {
             e.printStackTrace();
 
         } finally {
-            log.info(this.getClass().getName()+".ExerciseUpdate end!");
+            log.info(this.getClass().getName()+"finally .ExerciseUpdate end!");
 
             // 결과 메시지 전달하기
             model.addAttribute("msg", msg);
             model.addAttribute("url", url);
 
         }
+        log.info((String) model.getAttribute("url"));
         return "/redirect";
     }
 
     /**
      * 게시판 글 삭제
      */
-    @RequestMapping(value = "admin/ExerciseDelete")
+    @GetMapping(value = "admin/ExerciseDelete")
     public String ExerciseDelete(HttpServletRequest request, ModelMap model) {
 
         log.info(this.getClass().getName()+".ExerciseDelete start!");
@@ -247,13 +275,14 @@ public class ExerciseController {
             e.printStackTrace();
 
         } finally {
-            log.info(this.getClass().getName()+".ExerciseDelete end!");
+            log.info(this.getClass().getName()+".ExerciseDelete end! finally");
 
             //결과 메시지 전달하기
             model.addAttribute("msg",msg);
             model.addAttribute("url", url);
 
         }
+        log.info((String) model.getAttribute("url"));
         return "/redirect";
     }
 

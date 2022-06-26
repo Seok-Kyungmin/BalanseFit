@@ -1,135 +1,243 @@
-<%@ page import="com.balansefit.dto.UserInfoDTO" %>
-<%@ page import="com.balansefit.dto.UserWeightDTO" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
+         pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>WeightGraph</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
 
-    <!-- Font css -->
+    <!-- Favicon -->
+    <link href="../img/favicon.ico" rel="icon">
+
+    <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
-          rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600&family=Nunito:wght@600;700;800&family=Pacifico&display=swap" rel="stylesheet">
 
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <style>
-        .tit {
-            color: #424242;
-            text-align: center;
-            margin: 0px;
-            font-size: 45px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-weight: 700;
-        }
-        .box {
-            margin: 120px 40px 20px 40px;
-            height: 100%;
-            border-radius: 20px;
-            background-color: #fff;
-            flex: 1 1 auto;
-            padding: 64px;
-        }
-    </style>
-    <%
-        List<UserWeightDTO> wList= (List<UserWeightDTO>) request.getAttribute("wList");
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
-        //조회 결과 보여주기
-        if (wList==null){
-            wList = new ArrayList<UserWeightDTO>();
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
-        }
+    <!-- Template Stylesheet -->
+    <link href="../css/style.css" rel="stylesheet">
 
-        UserWeightDTO wDTO = null;
-
-        for (int i = 0; i < wList.size(); i++) {
-            wDTO = wList.get(i);
-
-            if (wDTO == null) {
-                wDTO = new UserWeightDTO();
-            }
-        }
-    %>
-</head>
-<body style="background-color: #EAEAF9; margin: 0px">
-
-<div style="background-color: #fff; padding: 30px; margin: 0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16); box-shadow: 5px 5px 5px#bec8cb">
-    <h3 class="tit">체중 그래프</h3>
-</div>
-<div class="box">
-    <canvas id="line-chart" width="800" height="750"></canvas>
+    <title>Food Add</title>
     <script type="text/javascript">
-
-        $(document).ready(function() {
-
-            let chartLabels = []; // 받아올 데이터를 저장할 배열 선언
-            let chartData = [];
-            let month="";
-
-            let cooContract
-
-            function createChart() {
-
-                var ctx = document.getElementById("canvas").getContext("2d");
-                LineChartDemo = Chart.Line(ctx, {
-                    data : lineChartData,
-                    options : {
-                        scales : {
-                            yAxes : [ {
-                                ticks : {
-                                    beginAtZero : true
-                                }
-                            } ]
-                        }
-                    }
-                });
+        //전송시 유효성 체크
+        function doSubmit(f) {
+            if (f.food_name.value == "") {
+                alert("음식명을 입력하시기 바랍니다");
+                f.food_name.focus();
+                return false;
             }
-
-        <%--    $.ajax({--%>
-        <%--        type: "get",--%>
-        <%--        data: {user_id:"${wDTO.user_id}"},--%>
-        <%--        dataType:"json",--%>
-        <%--        success:function (data){--%>
-        <%--            // 그래프로 나타낼 자료 리스트에 담기--%>
-        <%--            for (let i = 0; i<data.length; i++){--%>
-        <%--                dateList.push(data[i].weight_dt);--%>
-        <%--                weightList.push(data[i].current_w);--%>
-        <%--            }--%>
-        <%--            //그래프--%>
-        <%--            new Chart(document.getElementById("line-chart"), {--%>
-        <%--                type:"line",--%>
-        <%--                data: {--%>
-        <%--                    labels: dateList, // x축--%>
-        <%--                    datasets: [{--%>
-        <%--                        data: wDTO.current_w, //값--%>
-        <%--                        label: "몸무게",--%>
-        <%--                        borderColor:"#8BC7FE",--%>
-        <%--                        fill: false--%>
-        <%--                    }]--%>
-        <%--                },--%>
-        <%--                options:{--%>
-        <%--                    title: {--%>
-        <%--                        display:true,--%>
-        <%--                        text: '주간 몸무게'--%>
-        <%--                    }--%>
-        <%--                }--%>
-        <%--            }); // 그래프--%>
-        <%--        },--%>
-        <%--        error:function(){--%>
-        <%--            alert("실패");--%>
-        <%--        }--%>
-        <%--    }) // ajax--%>
-        <%--}   //getGraph--%>
-
+            if (f.food_calories.value == "") {
+                alert("칼로리를 입력하시기 바랍니다");
+                f.food_calories.focus();
+                return false;
+            }
+            if (f.food_carbohydrate.value == "") {
+                alert("탄수화물을 입력하시기 바랍니다");
+                f.food_carbohydrate.focus();
+                return false;
+            }
+            if (f.food_protein.value == "") {
+                alert("단백질을 입력하시기 바랍니다");
+                f.food_protein.focus();
+                return false;
+            }
+            if (f.food_fat.value == "") {
+                alert("지방을 입력하시기 바랍니다");
+                f.food_fat.focus();
+                return false;
+            }
+            if (f.food_sugar.value == "") {
+                alert("당을 입력하시기 바랍니다");
+                f.food_sugar.focus();
+                return false;
+            }
+            if (f.food_natrium.value == "") {
+                alert("나트륨을 입력하시기 바랍니다");
+                f.food_natrium.focus();
+                return false;
+            }
+            if (f.food_calories.value == "") {
+                alert("1회제공량을 입력하시기 바랍니다");
+                f.food_calories.focus();
+                return false;
+            }
+        }
     </script>
 
+    <style>
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 600px;
+            height: 400px;
+            padding: 20px;
+        }
+    </style>
+
+
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <%--    <style>--%>
+    <%--        .tit {--%>
+    <%--            color: #424242;--%>
+    <%--            text-align: center;--%>
+    <%--            margin: 0px;--%>
+    <%--            font-size: 45px;--%>
+    <%--            font-family: 'Noto Sans KR', sans-serif;--%>
+    <%--            font-weight: 700;--%>
+    <%--        }--%>
+    <%--        .box {--%>
+    <%--            margin: 120px 40px 20px 40px;--%>
+    <%--            height: 100%;--%>
+    <%--            border-radius: 20px;--%>
+    <%--            background-color: #fff;--%>
+    <%--            flex: 1 1 auto;--%>
+    <%--            padding: 64px;--%>
+    <%--        }--%>
+    <%--    </style>--%>
+
+</head>
+<body>
+<div class="container-xxl bg-white p-0">
+    <!-- Spinner Start -->
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-xxl position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 class="text-primary m-0"><i class="fa fa-utensils me-3"></i>Balance fit</h1>
+                <!-- <img src="img/logo.png" alt="Logo"> -->
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0 pe-4">
+                    <a href="/index" class="nav-item nav-link">Home</a>
+                    <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
+                    <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
+                    <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
+                    <!--                        <div class="nav-item dropdown">-->
+                    <!--                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>-->
+                    <!--                            <div class="dropdown-menu m-0">-->
+                    <!--                                <a href="booking.html" class="dropdown-item">Booking</a>-->
+                    <!--                                <a href="food.html" class="dropdown-item active">Our Team</a>-->
+                    <!--                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
+                </div>
+                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Login</a>
+            </div>
+        </nav>
+
+        <div class="container-xxl py-5 bg-dark hero-header mb-5">
+            <div class="container text-center my-5 pt-5 pb-4">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Exercise Info</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Navbar & Hero End -->
+
+
+    <!-- Menu Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Foods</h5>
+                <h1 class="mb-5">Our Food</h1>
+                <div style="text-align: right;margin-bottom: 30px;">
+                    <a href="/admin/FoodReg" class="btn btn-primary py-2 px-4">추가하기</a>
+                </div>
+
+
+                <canvas id="myChart" width="800" height="400"></canvas>
+                <script>
+                    const ctx = document.getElementById('myChart');
+                    const myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
+                            datasets: [{
+                                label: '# of Votes',
+                                data: [55, 53, 53, 52, 51, 51],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+
 </div>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../lib/wow/wow.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/waypoints/waypoints.min.js"></script>
+<script src="../lib/counterup/counterup.min.js"></script>
+<script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../lib/tempusdominus/js/moment.min.js"></script>
+<script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="../js/main.js"></script>
 </body>
 </html>

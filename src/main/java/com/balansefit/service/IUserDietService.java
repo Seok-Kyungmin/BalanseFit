@@ -1,6 +1,5 @@
 package com.balansefit.service;
 
-import com.balansefit.dto.FoodDTO;
 import com.balansefit.dto.UserDietDTO;
 
 import java.util.List;
@@ -20,10 +19,4 @@ public interface IUserDietService {
 
     // 유저 식단 삭제
     void deleteUserDietInfo(UserDietDTO dDTO) throws Exception;
-
-    // 음식 정보 검색
-    List<FoodDTO> findFood(String keyword);
-
-    // 식품 리스트
-    List<FoodDTO> getUserFoodList() throws Exception;
 }

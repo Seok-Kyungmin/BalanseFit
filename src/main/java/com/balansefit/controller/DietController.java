@@ -42,7 +42,7 @@ public class DietController {
 
         log.info(this.getClass().getName()+".DietList end!");
 
-        return "/admin/Diet";
+        return "/adminDiet/Diet";
 
     }
 
@@ -54,7 +54,7 @@ public class DietController {
         log.info(this.getClass().getName()+".DietReg start!");
         log.info(this.getClass().getName()+".DietReg end!");
 
-        return "/admin/DietReg";
+        return "/adminDiet/DietReg";
     }
 
     /**
@@ -70,26 +70,74 @@ public class DietController {
 
         try{
             // 식단 추가하기 위해 사용되는 from객체의 하위 input 객체 등을 받아오기 위해 사용함
+            String user_id = CmmUtil.nvl((String) session.getAttribute("SESSION_USER_ID"));
             String diet_name = CmmUtil.nvl(request.getParameter("diet_name")); // 식단 이름
-            String food_name = CmmUtil.nvl(request.getParameter("food_name")); // 식단 음식 이름
-            String food_number = CmmUtil.nvl(request.getParameter("food_number")); // 식단 음식 이름
-            String diet_calories = CmmUtil.nvl(request.getParameter("diet_calories")); // 식단 음식 이름
+            String food_m_1 = CmmUtil.nvl(request.getParameter("food_m_1"));  // 아침1
+            String food_mc_1 = CmmUtil.nvl(request.getParameter("food_mc_1"));  // 아침 식품1 수량
+            String food_m_2 = CmmUtil.nvl(request.getParameter("food_m_2"));
+            String food_mc_2 = CmmUtil.nvl(request.getParameter("food_mc_2"));
+            String food_m_3 = CmmUtil.nvl(request.getParameter("food_m_3"));
+            String food_mc_3 = CmmUtil.nvl(request.getParameter("food_mc_3"));
+            String food_a_1 = CmmUtil.nvl(request.getParameter("food_a_1"));        // 점심1
+            String food_ac_1 = CmmUtil.nvl(request.getParameter("food_ac_1"));      // 점심1 수량
+            String food_a_2 = CmmUtil.nvl(request.getParameter("food_a_2"));
+            String food_ac_2 = CmmUtil.nvl(request.getParameter("food_ac_2"));
+            String food_a_3 = CmmUtil.nvl(request.getParameter("food_a_3"));
+            String food_ac_3 = CmmUtil.nvl(request.getParameter("food_ac_3"));
+            String food_d_1 = CmmUtil.nvl(request.getParameter("food_d_1"));        // 저녁1
+            String food_dc_1 = CmmUtil.nvl(request.getParameter("food_dc_1"));        // 저녁1 수량
+            String food_d_2 = CmmUtil.nvl(request.getParameter("food_d_2"));
+            String food_dc_2 = CmmUtil.nvl(request.getParameter("food_dc_2"));
+            String food_d_3 = CmmUtil.nvl(request.getParameter("food_d_3"));
+            String food_dc_3 = CmmUtil.nvl(request.getParameter("food_dc_3"));
+            String diet_calories = CmmUtil.nvl(request.getParameter("diet_calories")); // 총칼로리
 
             // 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함 반드시 작성할 것
+            log.info("user_id : " + user_id);
             log.info("diet_name : " + diet_name);
-            log.info("food_name : " + food_name);
-            log.info("food_number : " + food_number);
+            log.info("food_m_1 : " + food_m_1);
+            log.info("food_mc_1 : " + food_mc_1);
+            log.info("food_m_2 : " + food_m_2);
+            log.info("food_mc_2 : " + food_mc_2);
+            log.info("food_m_3 : " + food_m_3);
+            log.info("food_mc_3 : " + food_mc_3);
+            log.info("food_a_1 : " + food_a_1);
+            log.info("food_ac_1 : " + food_ac_1);
+            log.info("food_a_2 : " + food_a_2);
+            log.info("food_ac_2 : " + food_ac_2);
+            log.info("food_a_3 : " + food_a_3);
+            log.info("food_ac_3 : " + food_ac_3);
+            log.info("food_d_1 : " + food_d_1);
+            log.info("food_dc_1 : " + food_dc_1);
+            log.info("food_dc_2 : " + food_dc_2);
+            log.info("food_d_3 : " + food_d_3);
+            log.info("food_dc_3 : " + food_dc_3);
             log.info("diet_calories : " + diet_calories);
 
-            DietDTO dDTO = new DietDTO();
+            DietDTO pDTO = new DietDTO();
 
-            dDTO.setDiet_name(diet_name);
-            dDTO.setFood_name(food_name);
-            dDTO.setFood_number(food_number);
-            dDTO.setDiet_calories(diet_calories);
+            pDTO.setUser_id(user_id);
+            pDTO.setDiet_name(diet_name);
+            pDTO.setFood_m_1(food_m_1);
+            pDTO.setFood_mc_1(food_mc_1);
+            pDTO.setFood_m_2(food_m_2);
+            pDTO.setFood_mc_2(food_mc_2);
+            pDTO.setFood_m_3(food_m_3);
+            pDTO.setFood_mc_3(food_mc_3);
+            pDTO.setFood_a_1(food_a_1);
+            pDTO.setFood_ac_1(food_ac_1);
+            pDTO.setFood_a_2(food_a_2);
+            pDTO.setFood_ac_2(food_ac_2);
+            pDTO.setFood_a_3(food_a_3);
+            pDTO.setFood_ac_3(food_ac_3);
+            pDTO.setFood_d_1(food_d_1);
+            pDTO.setFood_dc_2(food_dc_2);
+            pDTO.setFood_d_3(food_d_3);
+            pDTO.setFood_dc_3(food_dc_3);
+            pDTO.setDiet_calories(diet_calories);
 
             // 정보 추가하기 위한 비즈니스 로직을 호출
-            dietService.insertDietInfo(dDTO);
+            dietService.InsertDietInfo(pDTO);
 
             msg = "추가되었습니다!";
             url = "/admin/DietList";
@@ -124,24 +172,34 @@ public class DietController {
         String msg = "";
 
         try {
-            String dSeq = CmmUtil.nvl(request.getParameter("dSeq")); // 식단 번호
-
+            String dSeq = request.getParameter("dSeq"); // 식단 번호
             log.info("dSeq : " + dSeq);
 
-            DietDTO dDTO = new DietDTO();
-            dDTO.setDiet_seq(dSeq);
+            DietDTO pDTO = new DietDTO();
+            pDTO.setDiet_seq(dSeq);
 
             // 식단 상세정보 가져오기
-            DietDTO rDTO  = dietService.getDietInfo(dDTO);
+            DietDTO rDTO  = dietService.getDietInfo(pDTO);
 
             if (rDTO == null) {
                 rDTO = new DietDTO();
 
             }
 
-            log.info("getDietInfo success!!!");
+            String session_id = CmmUtil.nvl(request.getParameter("SESSION_USER_ID"));
 
+            log.info("getDietInfo success!!!");
+            log.info(this.getClass().getName()+" rDTO.getUser_id() "+rDTO.getUser_id());
+            log.info(this.getClass().getName()+" session_id "+session_id);
+            log.info(this.getClass().getName()+" getDiet_name "+rDTO.getDiet_name());
+            log.info(this.getClass().getName()+" getDiet_calories "+rDTO.getDiet_calories());
+            log.info(this.getClass().getName()+" getFood_m_1 "+rDTO.getFood_m_1());
+            log.info(this.getClass().getName()+" getFood_a_1 "+rDTO.getFood_a_1());
+            log.info(this.getClass().getName()+" getFood_d_1 "+rDTO.getFood_d_1());
+
+            // 조회된 리스트 결과값 넣어주기
             model.addAttribute("rDTO", rDTO);
+            log.info("rDTO 값은?"+rDTO.getUser_id());
 
         } catch (Exception d) {
             msg = "실패하였습니다. :" + d.getMessage();
@@ -149,16 +207,35 @@ public class DietController {
             d.printStackTrace();
 
         } finally {
-            log.info(this.getClass().getName() + ".DietInsert end!");
+            log.info(this.getClass().getName() + "finally.DietInsert end!");
 
             // 결과 메시지 전달하기
             model.addAttribute("msg", msg);
 
         }
 
-        log.info(this.getClass().getName() + ".DietInfo end!");
+        log.info((String) model.getAttribute("url"));
+        return "/adminDiet/DietInfo";
+    }
 
-        return "/admin/DietInfo";
+    /**
+     * 식단정보 수정 페이지 이동
+     */
+    @GetMapping(value = "admin/DietEdit")
+    public String DietEdit(HttpServletRequest request, ModelMap model) {
+
+        log.info(this.getClass().getName()+".DietEdit start!");
+        String diet_seq = CmmUtil.nvl(request.getParameter("dSeq"));
+        String user_id = CmmUtil.nvl(request.getParameter("user_id"));
+        log.info(this.getClass().getName()+".DietEdit diet_seq! "+diet_seq);
+        log.info(this.getClass().getName()+".DietEdit user_id! "+user_id);
+
+        log.info(this.getClass().getName()+".DietEdit end!");
+
+        model.addAttribute("diet_seq", diet_seq);
+        model.addAttribute("user_id", user_id);
+
+        return "/adminDiet/DietEditInfo";
     }
 
     /**
@@ -174,29 +251,77 @@ public class DietController {
 
         try{
 
-            String diet_seq = CmmUtil.nvl(request.getParameter("diet_seq"));
+            String user_id = CmmUtil.nvl((String) session.getAttribute("SESSION_USER_ID"));
+            String diet_seq = CmmUtil.nvl(request.getParameter("diet_seq")); // 식단 이름
             String diet_name = CmmUtil.nvl(request.getParameter("diet_name")); // 식단 이름
-            String food_name = CmmUtil.nvl(request.getParameter("food_name")); // 식단 음식 이름
-            String food_number = CmmUtil.nvl(request.getParameter("food_number")); // 식단 음식 이름
-            String diet_calories = CmmUtil.nvl(request.getParameter("diet_calories")); // 식단 음식 이름
+            String food_m_1 = CmmUtil.nvl(request.getParameter("food_m_1"));  // 아침1
+            String food_mc_1 = CmmUtil.nvl(request.getParameter("food_mc_1"));  // 아침 식품1 수량
+            String food_m_2 = CmmUtil.nvl(request.getParameter("food_m_2"));
+            String food_mc_2 = CmmUtil.nvl(request.getParameter("food_mc_2"));
+            String food_m_3 = CmmUtil.nvl(request.getParameter("food_m_3"));
+            String food_mc_3 = CmmUtil.nvl(request.getParameter("food_mc_3"));
+            String food_a_1 = CmmUtil.nvl(request.getParameter("food_a_1"));        // 점심1
+            String food_ac_1 = CmmUtil.nvl(request.getParameter("food_ac_1"));      // 점심1 수량
+            String food_a_2 = CmmUtil.nvl(request.getParameter("food_a_2"));
+            String food_ac_2 = CmmUtil.nvl(request.getParameter("food_ac_2"));
+            String food_a_3 = CmmUtil.nvl(request.getParameter("food_a_3"));
+            String food_ac_3 = CmmUtil.nvl(request.getParameter("food_ac_3"));
+            String food_d_1 = CmmUtil.nvl(request.getParameter("food_d_1"));        // 저녁1
+            String food_dc_1 = CmmUtil.nvl(request.getParameter("food_dc_1"));        // 저녁1 수량
+            String food_d_2 = CmmUtil.nvl(request.getParameter("food_d_2"));
+            String food_dc_2 = CmmUtil.nvl(request.getParameter("food_dc_2"));
+            String food_d_3 = CmmUtil.nvl(request.getParameter("food_d_3"));
+            String food_dc_3 = CmmUtil.nvl(request.getParameter("food_dc_3"));
+            String diet_calories = CmmUtil.nvl(request.getParameter("diet_calories")); // 총칼로리
 
             // 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함 반드시 작성할 것
+            log.info("user_id : " + user_id);
             log.info("diet_seq : " + diet_seq);
             log.info("diet_name : " + diet_name);
-            log.info("food_name : " + food_name);
-            log.info("food_number : " + food_number);
+            log.info("food_m_1 : " + food_m_1);
+            log.info("food_mc_1 : " + food_mc_1);
+            log.info("food_m_2 : " + food_m_2);
+            log.info("food_mc_2 : " + food_mc_2);
+            log.info("food_m_3 : " + food_m_3);
+            log.info("food_mc_3 : " + food_mc_3);
+            log.info("food_a_1 : " + food_a_1);
+            log.info("food_ac_1 : " + food_ac_1);
+            log.info("food_a_2 : " + food_a_2);
+            log.info("food_ac_2 : " + food_ac_2);
+            log.info("food_a_3 : " + food_a_3);
+            log.info("food_ac_3 : " + food_ac_3);
+            log.info("food_d_1 : " + food_d_1);
+            log.info("food_dc_1 : " + food_dc_1);
+            log.info("food_dc_2 : " + food_dc_2);
+            log.info("food_d_3 : " + food_d_3);
+            log.info("food_dc_3 : " + food_dc_3);
             log.info("diet_calories : " + diet_calories);
 
-            DietDTO dDTO = new DietDTO();
+            DietDTO pDTO = new DietDTO();
 
-            dDTO.setDiet_seq(diet_seq);
-            dDTO.setDiet_name(diet_name);
-            dDTO.setFood_name(food_name);
-            dDTO.setFood_number(food_number);
-            dDTO.setDiet_calories(diet_calories);
+            pDTO.setUser_id(user_id);
+            pDTO.setDiet_seq(diet_seq);
+            pDTO.setDiet_name(diet_name);
+            pDTO.setFood_m_1(food_m_1);
+            pDTO.setFood_mc_1(food_mc_1);
+            pDTO.setFood_m_2(food_m_2);
+            pDTO.setFood_mc_2(food_mc_2);
+            pDTO.setFood_m_3(food_m_3);
+            pDTO.setFood_mc_3(food_mc_3);
+            pDTO.setFood_a_1(food_a_1);
+            pDTO.setFood_ac_1(food_ac_1);
+            pDTO.setFood_a_2(food_a_2);
+            pDTO.setFood_ac_2(food_ac_2);
+            pDTO.setFood_a_3(food_a_3);
+            pDTO.setFood_ac_3(food_ac_3);
+            pDTO.setFood_d_1(food_d_1);
+            pDTO.setFood_dc_2(food_dc_2);
+            pDTO.setFood_d_3(food_d_3);
+            pDTO.setFood_dc_3(food_dc_3);
+            pDTO.setDiet_calories(diet_calories);
 
             //게시글 수정하기 DB
-            dietService.updateDietInfo(dDTO);
+            dietService.updateDietInfo(pDTO);
 
             msg = "수정되었습니다.";
             url = "/admin/DietList";
@@ -215,6 +340,7 @@ public class DietController {
             model.addAttribute("url", url);
 
         }
+        log.info((String) model.getAttribute("url"));
         return "/redirect";
     }
     /**
@@ -233,12 +359,12 @@ public class DietController {
 
             log.info("dSeq : " + dSeq);
 
-            DietDTO dDTO = new DietDTO();
+            DietDTO pDTO = new DietDTO();
 
-            dDTO.setDiet_seq(dSeq);
+            pDTO.setDiet_seq(dSeq);
 
             //게시글 삭제하기 DB
-            dietService.deleteDietInfo(dDTO);
+            dietService.deleteDietInfo(pDTO);
 
             msg = "삭제되었습니다";
             url = "/admin/DietList";
@@ -259,6 +385,7 @@ public class DietController {
         }
         return "/redirect";
     }
+
 
 
 }

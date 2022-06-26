@@ -19,5 +19,5 @@ public interface IMyPageMapper {
     void updateUserInfo(UserInfoDTO uDTO) throws Exception;
 
     // 일일 회원 몸무게 가져오기
-    List<UserWeightDTO> getWeightList() throws Exception;
+    List<UserWeightDTO> getWeightList(UserWeightDTO wDTO) throws Exception;
 }

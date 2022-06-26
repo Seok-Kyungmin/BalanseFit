@@ -64,24 +64,4 @@ public class UserDietService implements IUserDietService {
         userDietMapper.deleteUserDietInfo(dDTO);
     }
 
-    @Override
-    public List<FoodDTO> findFood(String keyword) {
-        return null;
-    }
-
-    @Override
-    public List<FoodDTO> getUserFoodList() throws Exception {
-        return userDietMapper.getUserFoodList();
-    }
-
-    @Transactional
-    public List<FoodDTO> search(String keyword) {
-
-        List<FoodDTO> foodList = userDietMapper.findFood(keyword);
-
-        return foodList;
-    }
-
-//    @Override
-//    public
 }

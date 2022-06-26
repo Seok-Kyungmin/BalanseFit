@@ -17,14 +17,16 @@
                              REG_ID, REG_DT, CHG_ID, CHG_DT)
             VALUES (
                 (SELECT NULLIF (MAX(A.EXERCISE_SEQ),0)+1 FROM EXERCISE A),
-                #{exercise_name}, #{exercise_met}, #{user_id}, 0, #{user_id}, SYSDATE(), #{user_id}, SYSDATE())
+                #{exercise_name}, #{exercise_met}, #{user_id}, #{user_id}, SYSDATE(),
+                    #{user_id}, SYSDATE())
     </insert>
 
     <!-- 운동 정보 상세보기 -->
-    <select id="getExerciseInfo" resultType="ExerciseDTO">
-        SELECT EXERCISE_SEQ, EXERCISE_NAME, EXERCISE_MET
-        FROM EXERCISE
-        WHERE EXERCISE_SEQ = #{exercise_seq}
+    <select id="getExerciseInfo" parameterType="ExerciseDTO" resultType="ExerciseDTO">
+        SELECT E.EXERCISE_SEQ, E.EXERCISE_NAME, E.EXERCISE_MET, E.USER_ID,
+               A.ADM_ID, DATE_FORMAT(E.REG_DT, '%Y-%m-%d')AS REG_DT
+        FROM EXERCISE E, ADMIN_INFO A
+        WHERE E.EXERCISE_SEQ = #{exercise_seq}
     </select>
 
     <!-- 운동 정보 수정 -->

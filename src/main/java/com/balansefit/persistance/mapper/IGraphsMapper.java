@@ -1,9 +1,11 @@
 package com.balansefit.persistance.mapper;
 
 import com.balansefit.dto.UserWeightDTO;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface IGraphsMapper {
 
 //    // 칼로리 카운트

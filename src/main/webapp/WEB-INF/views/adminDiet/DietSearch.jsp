@@ -1,9 +1,16 @@
+<%@ page import="com.balansefit.dto.ExerciseDTO" %>
+<%@ page import="com.balansefit.util.CmmUtil" %>
+<%@ page import="com.balansefit.dto.DietDTO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+         pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <meta charset="utf-8">
+    <title>Restoran - Bootstrap Restaurant Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,28 +37,43 @@
 
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
+    <title>foodSerch</title>
 
-    <title>Exercise Add</title>
-    <script type="text/javascript">
-        //전송시 유효성 체크
-        function doSubmit(f){
-            if(f.exercise_name.value == ""){
-                alert("운동명을 입력하시기 바랍니다");
-                f.exercise_name.focus();
-                return false;
-            }
-            if(f.exercise_met.value == ""){
-                alert("MET을 입력하시기 바랍니다");
-                f.exercise_met.focus();
-                return false;
-            }
+    <style>
+        input.form-text {
+            border: 1px solid #bcbcbc;
+            height: 28px;
         }
-    </script>
+
+        input.arrow-button {
+            background: url("../img/leftarrow2.png") no-repeat;
+            border: none;
+            background-size: 60px;
+            width: 60px;
+            height: 60px;
+            margin-top: 55px;
+            margin-left: 33px;
+            opacity: 60%;
+            cursor: pointer;
+        }
+    </style>
+
+    <%
+        List<DietDTO> dList = (List<DietDTO>) request.getAttribute("dList");
+
+        //운동 정보 조회 결과 보여주기
+        if (dList == null) {
+            dList = new ArrayList<DietDTO>();
+
+        }
+    %>
 </head>
-<body onload="doOnload();">
+
+<body>
 <div class="container-xxl bg-white p-0">
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -75,23 +97,21 @@
                     <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
                     <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
                     <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
-                    <!--                        <div class="nav-item dropdown">-->
-                    <!--                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>-->
-                    <!--                            <div class="dropdown-menu m-0">-->
-                    <!--                                <a href="booking.html" class="dropdown-item">Booking</a>-->
-                    <!--                                <a href="food.html" class="dropdown-item active">Our Team</a>-->
-                    <!--                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
                 </div>
-                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Login</a>
+                <a href="" class="btn btn-primary py-2 px-4">Login</a>
             </div>
         </nav>
 
         <div class="container-xxl py-5 bg-dark hero-header mb-5">
             <div class="container text-center my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Exercise Info</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Food Menu</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center text-uppercase">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Menu</li>
+                    </ol>
+                </nav>
             </div>
         </div>
     </div>
@@ -102,37 +122,59 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Exercise</h5>
-                <h1 class="mb-5">운동정보를 추가해주세요</h1>
-                <form action="/admin/ExerciseInsert" name="f" method="post" target="ifrPrc" onsubmit="return doSubmit(this)">
-                    <div>
-                        <div style="text-align: center;">
-                            <div class="form-floating" style="display: inline-block;">
-                                <input type="text" class="form-control" id="name" name="exercise_name" placeholder="Exercise Name" style="width: 340px; ">
-                                <label for="name">Exercise Name</label>
-                            </div>
-                        </div>
-                        <div style="text-align: center; margin-top: 15px;">
-                            <div class="form-floating" style="display: inline-block;">
-                                <input type="text" class="form-control" id="met" name="exercise_met" placeholder="Exercise MET" style="width: 340px; ">
-                                <label for="met">Exercise MET</label>
-                            </div>
-                        </div>
-
-                        <div class="col-12" style="display: flex;justify-content: center; align-items: center;margin-top: 25px;">
-                            <button class="btn btn-primary py-2"  type="submit">등록</button>
-                            <button class="btn btn-primary py-2" style="margin-left: 10px;" type="reset">다시 작성</button>
-                        </div>
-                    </div>
-                </form>
-
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food Menu</h5>
+                <h1 class="mb-5">Menu Items</h1>
             </div>
+
+            <form>
+                <div style="display: flex">
+                    <form>
+                        <div class="position-relative mx-auto" style="width: 600px;">
+                            <input class="form-control border-primary w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                            <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">SignUp</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="con">
+                    <div class="divTable minimalistBlack">
+                        <div class="divTableHeading">
+                            <div class="divTableRow">
+                                <div class="divTableHead">식품 코드</div>
+                                <div class="divTableHead">식품명</div>
+                                <div class="divTableHead">총칼로리</div>
+                            </div>
+                        </div>
+                        <%
+                            DietDTO dDTO = null;
+
+                            for (int i = 0; i < dList.size(); i++) {
+                                dDTO = dList.get(i);
+
+                                if (dDTO == null) {
+                                    dDTO = new DietDTO();
+                                }
+                        %>
+                        <div class="divTableBody">
+                            <div class="divTableRow">
+                                <div class="divTableCell"><%=CmmUtil.nvl(dDTO.getDiet_seq())%></div>
+                                <div class="divTableCell">
+                                    <a href="javascript:doDetail('<%=CmmUtil.nvl(dDTO.getDiet_seq())%>');">
+                                        <%=CmmUtil.nvl(dDTO.getDiet_name())%></a></div>
+                                <div class="divTableCell"><%=CmmUtil.nvl(dDTO.getDiet_calories())%></div>
+                            </div>
+                        </div>
+                        <%
+                            }
+                        %>
+                    </div>
+
+                </div>
+            </form>
+
 
         </div>
     </div>
-    <!-- Menu End -->
-
-
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
@@ -143,6 +185,10 @@
 
 
     <!-- Back to Top -->
+    <script type="text/javascript">
+
+    </script>
+
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 </div>
 

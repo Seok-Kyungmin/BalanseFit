@@ -40,6 +40,8 @@
 
     <link href="../css/exerciseInfo.css" rel="stylesheet">
     <%
+        session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
+
         List<FoodDTO> fList = (List<FoodDTO>) request.getAttribute("rList");
 
         //운동 정보 조회 결과 보여주기
@@ -52,7 +54,7 @@
 
         //상세보기 이동
         function doDetail(seq) {
-            location.href = "/adminFood/FoodInfo?eSeq=" + seq;
+            location.href = "/admin/FoodInfo?fSeq=" + seq;
         }
 
     </script>
@@ -142,9 +144,9 @@
                     %>
                     <div class="divTableBody">
                         <div class="divTableRow">
-                            <div class="divTableCell"><%=CmmUtil.nvl(fDTO.getFood_seq())%></div>
+                            <div class="divTableCell"><%=CmmUtil.nvl(String.valueOf(fDTO.getFood_seq()))%></div>
                             <div class="divTableCell">
-                                <a href="javascript:doDetail('<%=CmmUtil.nvl(fDTO.getFood_seq())%>');">
+                                <a href="javascript:doDetail('<%=CmmUtil.nvl(String.valueOf(fDTO.getFood_seq()))%>');">
                                     <%=CmmUtil.nvl(fDTO.getFood_name())%></a></div>
                             <div class="divTableCell"><%=CmmUtil.nvl(fDTO.getFood_calories())%></div>
                         </div>

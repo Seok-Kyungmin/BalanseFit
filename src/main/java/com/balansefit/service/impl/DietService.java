@@ -28,34 +28,36 @@ public class DietService implements IDietService {
 
     @Transactional
     @Override
-    public void insertDietInfo(DietDTO dDTO) throws Exception {
+    public void InsertDietInfo(DietDTO pDTO) throws Exception {
 
-        log.info(this.getClass().getName() + ".insertDietInfo start!");
-        dietMapper.insertDietInfo(dDTO);
+        log.info(this.getClass().getName() + ".InsertDietInfo start!");
+        dietMapper.InsertDietInfo(pDTO);
     }
 
     @Transactional
     @Override
-    public DietDTO getDietInfo(DietDTO dDTO) throws Exception {
+    public DietDTO getDietInfo(DietDTO pDTO) throws Exception {
 
         log.info(this.getClass().getName() + ".getDietInfo start!");
 
-        return dietMapper.getDietInfo(dDTO);
+        return dietMapper.getDietInfo(pDTO);
     }
 
     @Transactional
     @Override
-    public void updateDietInfo(DietDTO dDTO) throws Exception {
+    public void updateDietInfo(DietDTO pDTO) throws Exception {
 
         log.info(this.getClass().getName() + ".updateDietInfo start!");
-        dietMapper.updateDietInfo(dDTO);
+        dietMapper.updateDietInfo(pDTO);
     }
 
     @Transactional
     @Override
-    public void deleteDietInfo(DietDTO dDTO) throws Exception {
+    public void deleteDietInfo(DietDTO pDTO) throws Exception {
 
         log.info(this.getClass().getName() + ".deleteDietInfo start1");
-        dietMapper.deleteDietInfo(dDTO);
+        dietMapper.deleteDietInfo(pDTO);
     }
+
+
 }

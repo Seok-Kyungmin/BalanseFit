@@ -5,9 +5,19 @@ import com.balansefit.persistance.mapper.IUserInfoMapper;
 import com.balansefit.service.IUserInfoService;
 import com.balansefit.util.CmmUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.mail.EmailException;
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @Service("UserInfoService")
@@ -21,6 +31,7 @@ public class UserInfoService implements IUserInfoService {
 //
 //        return userInfoMapper.getUserInfo(uDTO);
 //    }
+
 
     //회원가입
     @Override
@@ -99,4 +110,69 @@ public class UserInfoService implements IUserInfoService {
 //        return userInfoMapper.getUserDetail(uDTO);
 //    }
 
-}
+    //비밀번호 찾기 이메일발송
+    public String findPw(HttpServletResponse resp, UserInfoDTO tDTO) throws Exception{
+
+        HtmlEmail email1 = new HtmlEmail();
+        email1.setHostName("smtp.naver.com");
+        email1.setSmtpPort(465);
+        email1.setAuthentication("본인네이버이메일", "네이버 비밀번호");
+
+        email1.setSSLOnConnect(true);
+        email1.setStartTLSEnabled(true);
+
+        int res = 0;
+        return "";
+
+    }
+
+    @Override
+    public int getUserExists2(UserInfoDTO tDTO) throws Exception {
+
+        int res = UserInfoMapper.getUserExists2(tDTO);
+        return res;
+    }
+
+
+    public int sendAuthEmail(String email, String url) throws InvalidAlgorithmParameterException, UnsupportedEncodingException,
+            NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+
+        log.info(this.getClass().getName()+ "메일 전송 시작");
+
+        HtmlEmail email1 = new HtmlEmail();
+        email1.setHostName("smtp.naver.com");
+        email1.setSmtpPort(465);
+        email1.setAuthentication("sukm386@naver.com", "sukm0219*");
+
+        email1.setSSLOnConnect(true);
+        email1.setStartTLSEnabled(true);
+
+        int res = 0;
+
+
+
+
+
+        try{
+            email1.setFrom("sukm386@naver.com", "BalanceFit manager", "utf-8");
+            email1.addTo(email, "BalanceFit", "utf-8");
+            email1.setSubject("authentication");
+
+            StringBuffer msg = new StringBuffer();
+
+            msg.append("<p>I'm BalanceFit manager.</p>");
+            msg.append("<p>you can certify</p>");
+            msg.append("<a href='" + url +"?email="+ email + "'>plz click this link</a>");
+
+
+            email1.setHtmlMsg(msg.toString());
+            email1.send();
+        } catch (EmailException e) {
+            e.printStackTrace();
+        }
+
+
+        log.info(this.getClass().getName()+ "메일 전송 완료");
+
+        return 0;
+    }}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
-<mapper namespace="poly.persistance.mapper.IUserInfoMapper">
+<mapper namespace="com.balansefit.persistance.mapper.IUserInfoMapper">
 
     <!-- 마이 페이지 사용자게시판 -->
     <select id="getSmallInfoList" resultType="UserInfoDTO">
@@ -35,16 +35,10 @@
     </update>
 
     <!-- 일일 몸무게 리스트 -->
-    <select id="getWeightList" resultType="UserWeightDTO">
-        SELECT W.CURRENT_W,
-               W.USER_ID,
-               U.USER_ID,
-               U.USER_WEIGHT,
-               DATE_FORMAT(W.WEIGHT_DT, '%m월%d일') AS WEIGHT_DT
-        FROM USER_WEIGHT W,
-             USER_INFO U
-        WHERE W.USER_ID = U.USER_ID
-          AND W.CURRENT_WEIGHT = U.USER_WEIGHT
+    <select id="getWeightList" parameterType="UserInfoDTO" resultType="UserWeightDTO">
+        SELECT W.CURRENT_W, W.USER_ID, DATE_FORMAT(W.WEIGHT_DT, '%m월%d일') AS WEIGHT_DT
+        FROM USER_WEIGHT W
+        WHERE W.USER_ID = #{user_id}
         ORDER BY W.WEIGHT_DT ASC
     </select>
 

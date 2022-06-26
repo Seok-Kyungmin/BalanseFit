@@ -53,7 +53,7 @@ public class FoodController {
         log.info(this.getClass().getName()+ ".FoodReg start!");
         log.info(this.getClass().getName()+ ".FoodReg end!");
 
-        return "/adminFood/FoodReq";
+        return "/adminFood/FoodReg";
     }
 
     /**
@@ -69,7 +69,7 @@ public class FoodController {
 
         try{
             // 운동 정보 추가하기 위해 사용되는 from객체의 하위 input 객체 등을 받아오기 위해 사용함
-//            String user_id = CmmUtil.nvl((String) session.getAttribute("SESSION_USER_ID"));
+            String user_id = CmmUtil.nvl((String) session.getAttribute("SESSION_USER_ID"));
             String food_name = CmmUtil.nvl(request.getParameter("food_name")); // 음식명
             String food_calories = CmmUtil.nvl(request.getParameter("food_calories")); // 칼로리
             String food_carbohydrate = CmmUtil.nvl(request.getParameter("food_carbohydrate")); // 탄수화물
@@ -81,7 +81,7 @@ public class FoodController {
 
 
             // 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함 반드시 작성할 것
-//            log.info("user_id : " + user_id);
+            log.info("user_id : " + user_id);
             log.info("food_name : " + food_name);
             log.info("food_calories : " + food_calories);
             log.info("food_carbohydrate : " + food_carbohydrate);
@@ -94,7 +94,7 @@ public class FoodController {
 
             FoodDTO pDTO = new FoodDTO();
 
-//            pDTO.setUser_id(user_id);
+            pDTO.setUser_id(user_id);
             pDTO.setFood_name(food_name);
             pDTO.setFood_calories(food_calories);
             pDTO.setFood_carbohydrate(food_carbohydrate);
@@ -127,6 +127,7 @@ public class FoodController {
             model.addAttribute("url", url);
 
         }
+        log.info((String) model.getAttribute("url"));
         return "/redirect";
     }
 
@@ -141,12 +142,11 @@ public class FoodController {
         String msg = "";
 
         try {
-            String fSeq = CmmUtil.nvl(request.getParameter("fSeq"));
-
+            String fSeq = request.getParameter("fSeq");
             log.info("fSeq : " + fSeq);
 
             FoodDTO pDTO = new FoodDTO();
-            pDTO.setFood_seq(fSeq);
+            pDTO.setFood_seq(Integer.parseInt(fSeq));
 
             // 상세정보 가져오기
             FoodDTO rDTO = foodService.getFoodInfo(pDTO);
@@ -155,16 +155,29 @@ public class FoodController {
                 rDTO = new FoodDTO();
             }
 
+            String session_id = CmmUtil.nvl(request.getParameter("SESSION_USER_ID"));
+
             log.info("getFoodInfo success!!");
+            log.info(this.getClass().getName()+" rDTO.getUser_id() "+rDTO.getUser_id());
+            log.info(this.getClass().getName()+" session_id "+session_id);
+            log.info(this.getClass().getName() + " getFood_seq : " +rDTO.getFood_seq());
+            log.info(this.getClass().getName() + " getFood_name : " +rDTO.getFood_name());
+            log.info(this.getClass().getName() + " getFood_calories : " +rDTO.getFood_calories());
+            log.info(this.getClass().getName() + " getFood_carbohydrate : " +rDTO.getFood_carbohydrate());
+            log.info(this.getClass().getName() + " getFood_fat : " +rDTO.getFood_fat());
+            log.info(this.getClass().getName() + " getFood_protein : " +rDTO.getFood_protein());
+            log.info(this.getClass().getName() + " getFood_natrium : " +rDTO.getFood_natrium());
+            log.info(this.getClass().getName() + " getFood_sugar : " +rDTO.getFood_sugar());
+            log.info(this.getClass().getName() + " getFood_weight : " +rDTO.getFood_weight());
 
             // 조회된 리스트 결과값 넣어주기
             model.addAttribute("rDTO", rDTO);
 
-        } catch (Exception e) {
+        } catch (Exception f) {
 
-            msg= "실패하였습니다 : " + e.getMessage();
-            log.info(e.toString());
-            e.printStackTrace();
+            msg= "실패하였습니다 : " + f.getMessage();
+            log.info(f.toString());
+            f.printStackTrace();
 
         }finally {
 
@@ -174,7 +187,7 @@ public class FoodController {
             model.addAttribute("msg", msg);
 
         }
-        log.info(this.getClass().getName() + ".FoodInfo end!");
+        log.info((String) model.getAttribute("url"));
 
         return "/adminFood/FoodInfo";
     }
@@ -198,7 +211,7 @@ public class FoodController {
 
             FoodDTO pDTO = new FoodDTO();
 
-            pDTO.setFood_seq(fSeq);
+            pDTO.setFood_seq(Integer.parseInt(fSeq));
 
             //게시글 삭제하기 DB
             foodService.deleteFoodInfo(pDTO);
@@ -206,11 +219,11 @@ public class FoodController {
             msg = "삭제되었습니다";
             url = "/admin/FoodList";
 
-        } catch (Exception e) {
-            msg = "실패하였습니다 : " + e.getMessage();
+        } catch (Exception f) {
+            msg = "실패하였습니다 : " + f.getMessage();
             url = "/admin/FoodList";
-            log.info(e.toString());
-            e.printStackTrace();
+            log.info(f.toString());
+            f.printStackTrace();
 
         } finally {
             log.info(this.getClass().getName()+".FoodDelete end!");
@@ -220,9 +233,9 @@ public class FoodController {
             model.addAttribute("url", url);
 
         }
+        log.info((String) model.getAttribute("url"));
         return "/redirect";
     }
 
-    //
 }
 

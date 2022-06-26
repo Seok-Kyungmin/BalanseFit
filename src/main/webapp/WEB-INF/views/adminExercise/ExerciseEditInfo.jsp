@@ -4,6 +4,7 @@
 <%@ page import="com.balansefit.dto.ExerciseDTO" %>
 <%
     ExerciseDTO eDTO = (ExerciseDTO) request.getAttribute("eDTO");
+    String user_id =(String) request.getAttribute("user_id");
 
 //운동 정보를 못불러왔다면, 객체 생성
     if (eDTO == null) {
@@ -12,11 +13,17 @@
     }
 
     int access = 1; //(작성자 : 2 / 다른 사용자: 1)
+    System.out.println(CmmUtil.nvl("session에서 가져온 id: " + (String)session.getAttribute("SESSION_USER_ID")));
+    System.out.println(CmmUtil.nvl(" 가져온 id: " + user_id));
 
-    if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_ID")).equals(
-            CmmUtil.nvl(eDTO.getUser_id()))) {
+    if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_ID")).equals(user_id)) {
         access = 2;
     }
+
+
+
+    String seq = CmmUtil.nvl((String)request.getAttribute("exercise_seq"));
+    System.out.println("exerciseEdit: " + seq);
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -142,14 +149,14 @@
                         <input type="hidden" name="eSeq" value="<%=CmmUtil.nvl(request.getParameter("eSeq")) %>"/>
                         <div style="text-align: center;">
                             <div class="form-floating" style="display: inline-block;">
-                                <input type="text" class="form-control" id="name"
+                                <input type="text" class="form-control" id="name" name="exercise_name"
                                        value="<%=CmmUtil.nvl(eDTO.getExercise_name()) %>" style="width: 340px; ">
                                 <label for="name">Exercise Name</label>
                             </div>
                         </div>
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
-                                <input type="text" class="form-control" id="met"
+                                <input type="text" class="form-control" id="met" name="exercise_met"
                                        value="<%=CmmUtil.nvl(eDTO.getExercise_met()) %>" style="width: 340px; ">
                                 <label for="met">Exercise MET</label>
                             </div>
@@ -178,7 +185,20 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../lib/wow/wow.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/counterup/counterup.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
+    <!-- Template Javascript -->
+    <script src="../js/main.js"></script>
 </div>
 </body>
 </html>

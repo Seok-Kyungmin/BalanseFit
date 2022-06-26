@@ -11,7 +11,7 @@
     </select>
 
     <!-- 이메일로 회원 가입 중복 방지하기 -->
-    <select id="getUserExists2" parameterType="UserInfoDTO" resultType="UserInfoDTO">
+    <select id="getUserExists2" parameterType="UserInfoDTO">
         SELECT IF(COUNT(1) = 0, 'N', 'Y') AS EXISTS_YN
         FROM USER_INFO
         WHERE USER_EMAIL = #{user_email}

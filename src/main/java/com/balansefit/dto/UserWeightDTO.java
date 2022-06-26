@@ -1,10 +1,8 @@
 package com.balansefit.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class UserWeightDTO {
 
     String weight_dt; // 몸무게별 날짜

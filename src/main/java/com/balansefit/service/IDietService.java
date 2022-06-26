@@ -10,7 +10,7 @@ public interface IDietService {
     List<DietDTO> getDietList() throws Exception;
 
     // 게시판 글 등록
-    void insertDietInfo(DietDTO dDTO) throws Exception;
+    void InsertDietInfo(DietDTO dDTO) throws Exception;
 
     // 게시판 상세보기
     DietDTO getDietInfo(DietDTO dDTO) throws Exception;
@@ -20,4 +20,8 @@ public interface IDietService {
 
     // 게시판 글 삭제
     void deleteDietInfo(DietDTO dDTO) throws Exception;
+
+
+
+
 }

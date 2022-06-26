@@ -7,6 +7,7 @@
 
 //공지글 정보를 못불러왔다면, 객체 생성
     if (rDTO==null){
+        System.out.println("정보 불러오는 것을 실패했습니다");
         rDTO = new FoodDTO();
 
     }
@@ -39,7 +40,7 @@
     <meta content="" name="description">
 
     <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
+    <link href="../img/favicon.ico" rel="icon">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,24 +52,24 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="../lib/animate/animate.min.css" rel="stylesheet">
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
 
-    <title>운동정보 보기</title>
+    <title>식품정보 보기</title>
     <script type="text/javascript">
 
         //삭제하기
         function doDelete() {
             if ("<%=edit%>" == 2) {
                 if (confirm("작성한 글을 삭제하시겠습니까?")) {
-                    location.href = "/admin/FoodDelete?nSeq=<%=CmmUtil.nvl(rDTO.getFood_seq())%>";
+                    location.href = "/admin/FoodDelete?fSeq=<%=CmmUtil.nvl(String.valueOf(rDTO.getFood_seq()))%>";
 
                 }
 
@@ -83,7 +84,7 @@
 
         //목록으로 이동
         function doList() {
-            location.href = "/admin/FoodList";
+            window.location.href = "/admin/FoodList";
 
         }
     </script>
@@ -110,10 +111,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="index.html" class="nav-item nav-link">Home</a>
+                    <a href="/index" class="nav-item nav-link">Home</a>
                     <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
                     <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
-                    <a href="food.html" class="nav-item nav-link">Food</a>
+                    <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
                     <!--                        <div class="nav-item dropdown">-->
                     <!--                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>-->
                     <!--                            <div class="dropdown-menu m-0">-->
@@ -130,14 +131,7 @@
 
         <div class="container-xxl py-5 bg-dark hero-header mb-5">
             <div class="container text-center my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Contact Us</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center text-uppercase">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">Contact</li>
-                    </ol>
-                </nav>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Food Info</h1>
             </div>
         </div>
     </div>
@@ -148,64 +142,90 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Contact Us</h5>
-                <h1 class="mb-5">Contact For Any Query</h1>
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Food</h5>
+                <h1 class="mb-5">식품정보 상세보기</h1>
             </div>
-            <div class="row g-4">
+            <div class="row g-4" style="width: 710px; margin: 0 auto;">
                 <div class="col-md-12">
                     <div class="wow fadeInUp" data-wow-delay="0.2s">
                         <form style="display: flex;justify-content: center;">
                             <div class="row g-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                        <label for="name">Your Name</label>
+                                        <div class="form-control" id="name" style="width: 340px;">
+                                            <%=CmmUtil.nvl(rDTO.getFood_name())%>
+                                        </div>
+                                        <label for="name">Food Name</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <div class="form-control" id="calories" style="width: 340px;">
+                                            <%=CmmUtil.nvl(rDTO.getFood_calories())%>
+                                        </div>
+                                        <label for="calories">Food Calories</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <div class="form-control" id="carbohydrate" style="width: 340px;">
+                                            <%=CmmUtil.nvl(rDTO.getFood_carbohydrate())%>
+                                        </div>
+                                        <label for="carbohydrate">Food Carbohydrate</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <div class="form-control" id="protein" style="width: 340px;">
+                                            <%=CmmUtil.nvl(rDTO.getFood_protein())%>
+                                        </div>
+                                        <label for="protein">Food Protein</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <div class="form-control" id="fat" style="width: 340px;">
+                                            <%=CmmUtil.nvl(rDTO.getFood_fat())%>
+                                        </div>
+                                        <label for="fat">Food Fat</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <div class="form-control" id="sugar" style="width: 340px;">
+                                            <%=CmmUtil.nvl(rDTO.getFood_sugar())%>
+                                        </div>
+                                        <label for="sugar">Food Sugar</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <div class="form-control" id="natrium" style="width: 340px;">
+                                            <%=CmmUtil.nvl(rDTO.getFood_natrium())%>
+                                        </div>
+                                        <label for="natrium">Food Natrium</label>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                        <label for="email">Your Email</label>
+                                        <div class="form-control" id="weight" style="width: 340px;">
+                                            <%=CmmUtil.nvl(rDTO.getFood_weight())%>
+                                        </div>
+                                        <label for="weight">Food Weight</label>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Send Message</button>
+                                <div style="text-align: center;margin-top: 25px;">
+                                    <div style="display: inline-block;width: 100px;">
+                                        <%--                                <a href="javascript:doDelete();">--%>
+                                        <button type="button" class="btn btn-primary w-100" onclick="doDelete()">삭제</button>
+                                        <%--                                </a>--%>
+                                    </div>
+
+                                    <div style="display: inline-block;width: 100px;">
+                                        <%--                                <a href="javascript:doList();">--%>
+                                        <button type="button" class="btn btn-primary w-100" onclick="doList()">목록</button>
+                                        <%--                                </a>--%>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -220,8 +240,6 @@
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
         <div class="container py-5">
-            <div class="row g-5">
-            </div>
         </div>
     </div>
     <!-- Footer End -->
@@ -234,17 +252,17 @@
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="lib/wow/wow.min.js"></script>
-<script src="lib/easing/easing.min.js"></script>
-<script src="lib/waypoints/waypoints.min.js"></script>
-<script src="lib/counterup/counterup.min.js"></script>
-<script src="lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="lib/tempusdominus/js/moment.min.js"></script>
-<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="../lib/wow/wow.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/waypoints/waypoints.min.js"></script>
+<script src="../lib/counterup/counterup.min.js"></script>
+<script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../lib/tempusdominus/js/moment.min.js"></script>
+<script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <!-- Template Javascript -->
-<script src="js/main.js"></script>
+<script src="../js/main.js"></script>
 </body>
 
 </html>
