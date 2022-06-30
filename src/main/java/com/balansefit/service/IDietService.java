@@ -15,9 +15,6 @@ public interface IDietService {
     // 게시판 상세보기
     DietDTO getDietInfo(DietDTO dDTO) throws Exception;
 
-    // 게시판 글 수정
-    void updateDietInfo(DietDTO dDTO) throws Exception;
-
     // 게시판 글 삭제
     void deleteDietInfo(DietDTO dDTO) throws Exception;
 

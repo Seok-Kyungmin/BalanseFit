@@ -5,19 +5,9 @@ import com.balansefit.persistance.mapper.IUserInfoMapper;
 import com.balansefit.service.IUserInfoService;
 import com.balansefit.util.CmmUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.mail.EmailException;
-import org.apache.commons.mail.HtmlEmail;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @Service("UserInfoService")
@@ -35,7 +25,7 @@ public class UserInfoService implements IUserInfoService {
 
     //회원가입
     @Override
-    public int insertUser(UserInfoDTO pDTO) throws Exception{
+    public int insertUser(UserInfoDTO pDTO) throws Exception {
 
         log.info(this.getClass().getName() + "UserService : insertUser 시작!");
 
@@ -49,23 +39,22 @@ public class UserInfoService implements IUserInfoService {
         UserInfoDTO rDTO = UserInfoMapper.getUserExists(pDTO);
         log.info("중복체크");
 
-        if(rDTO == null){
+        if (rDTO == null) {
             rDTO = new UserInfoDTO();
         }
 
         log.info("rDTO.getExists_yn()).equals(\"Y\") :  " + rDTO.getExists_yn());
-        if(CmmUtil.nvl(rDTO.getExists_yn()).equals("Y")){
+        if (CmmUtil.nvl(rDTO.getExists_yn()).equals("Y")) {
             //아이디 중복이므로 회원가입 x
             res = 2;
 
-        }else {
+        } else {
             int success = UserInfoMapper.insertUser(pDTO);
 
-            if(success > 0){
+            if (success > 0) {
 
                 res = 1;
-            }
-            else {
+            } else {
                 res = 0;
             }
         }
@@ -82,10 +71,10 @@ public class UserInfoService implements IUserInfoService {
 
         UserInfoDTO rDTO = UserInfoMapper.getUserLoginCheck(pDTO);
 
-        if(rDTO == null) {
+        if (rDTO == null) {
             log.info(this.getClass().getName() + "로그인 실패");
             res = 0;
-        }else {
+        } else {
             log.info(this.getClass().getName() + "로그인 성공");
             res = 1;
         }
@@ -94,6 +83,16 @@ public class UserInfoService implements IUserInfoService {
 
         return res;
     }
+
+    @Override
+    public int getUserExists2(UserInfoDTO tDTO) throws Exception {
+
+        int res = UserInfoMapper.getUserExists2(tDTO);
+        return res;
+    }
+
+
+
 
     // 아이디 확인
 //    @Override
@@ -111,68 +110,62 @@ public class UserInfoService implements IUserInfoService {
 //    }
 
     //비밀번호 찾기 이메일발송
-    public String findPw(HttpServletResponse resp, UserInfoDTO tDTO) throws Exception{
+//    public String findPw(HttpServletResponse resp, UserInfoDTO tDTO) throws Exception {
+//
+//        HtmlEmail email1 = new HtmlEmail();
+//        email1.setHostName("smtp.naver.com");
+//        email1.setSmtpPort(465);
+//        email1.setAuthentication("sukm386@naver.com", "sukm0219*");
+//
+//        email1.setSSLOnConnect(true);
+//        email1.setStartTLSEnabled(true);
+//
+//        int res = 0;
+//        return "";
+//
+//    }
 
-        HtmlEmail email1 = new HtmlEmail();
-        email1.setHostName("smtp.naver.com");
-        email1.setSmtpPort(465);
-        email1.setAuthentication("본인네이버이메일", "네이버 비밀번호");
-
-        email1.setSSLOnConnect(true);
-        email1.setStartTLSEnabled(true);
-
-        int res = 0;
-        return "";
-
-    }
-
-    @Override
-    public int getUserExists2(UserInfoDTO tDTO) throws Exception {
-
-        int res = UserInfoMapper.getUserExists2(tDTO);
-        return res;
-    }
-
-
-    public int sendAuthEmail(String email, String url) throws InvalidAlgorithmParameterException, UnsupportedEncodingException,
-            NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-
-        log.info(this.getClass().getName()+ "메일 전송 시작");
-
-        HtmlEmail email1 = new HtmlEmail();
-        email1.setHostName("smtp.naver.com");
-        email1.setSmtpPort(465);
-        email1.setAuthentication("sukm386@naver.com", "sukm0219*");
-
-        email1.setSSLOnConnect(true);
-        email1.setStartTLSEnabled(true);
-
-        int res = 0;
-
-
-
-
-
-        try{
-            email1.setFrom("sukm386@naver.com", "BalanceFit manager", "utf-8");
-            email1.addTo(email, "BalanceFit", "utf-8");
-            email1.setSubject("authentication");
-
-            StringBuffer msg = new StringBuffer();
-
-            msg.append("<p>I'm BalanceFit manager.</p>");
-            msg.append("<p>you can certify</p>");
-            msg.append("<a href='" + url +"?email="+ email + "'>plz click this link</a>");
-
-
-            email1.setHtmlMsg(msg.toString());
-            email1.send();
-        } catch (EmailException e) {
-            e.printStackTrace();
-        }
-
-
-        log.info(this.getClass().getName()+ "메일 전송 완료");
-
-        return 0;
-    }}
+//    @Override
+//    public int sendAuthEmail(String email, String url) throws InvalidAlgorithmParameterException, UnsupportedEncodingException,
+//            NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+//
+//        log.info(this.getClass().getName()+ "메일 전송 시작");
+//
+//        HtmlEmail email1 = new HtmlEmail();
+//        email1.setHostName("smtp.naver.com");
+//        email1.setSmtpPort(465);
+//        email1.setAuthentication("sukm386@naver.com", "sukm0219*");
+//
+//        email1.setSSLOnConnect(true);
+//        email1.setStartTLSEnabled(true);
+//
+//        int res = 0;
+//
+//
+//
+//
+//
+//        try{
+//            email1.setFrom("sukm386@naver.com", "BalanceFit manager", "utf-8");
+//            email1.addTo(email, "BalanceFit", "utf-8");
+//            email1.setSubject("authentication");
+//
+//            StringBuffer msg = new StringBuffer();
+//
+//            msg.append("<p>I'm BalanceFit manager.</p>");
+//            msg.append("<p>you can certify</p>");
+//            msg.append("<a href='" + url +"?email="+ email + "'>plz click this link</a>");
+//
+//
+//            email1.setHtmlMsg(msg.toString());
+//            email1.send();
+//        } catch (EmailException e) {
+//            e.printStackTrace();
+//        }
+//
+//
+//        log.info(this.getClass().getName()+ "메일 전송 완료");
+//
+//        return 0;
+//    }
+}

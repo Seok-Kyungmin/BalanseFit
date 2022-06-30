@@ -6,7 +6,6 @@ import com.balansefit.service.IExerciseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @Service("ExerciseService")
 public class ExerciseService implements IExerciseService {
 
-    private final IExerciseMapper exerciseMapper;
+    public final IExerciseMapper exerciseMapper;
 
     @Autowired
     public ExerciseService(IExerciseMapper exerciseMapper) {
@@ -26,7 +25,11 @@ public class ExerciseService implements IExerciseService {
         return exerciseMapper.getExerciseList();
     }
 
-    @Transactional
+    @Override
+    public List<ExerciseDTO> getUserExerciseList() throws Exception {
+        return exerciseMapper.getUserExerciseList();
+    }
+
     @Override
     public void insertExerciseInfo(ExerciseDTO pDTO) throws Exception {
 
@@ -35,7 +38,6 @@ public class ExerciseService implements IExerciseService {
         exerciseMapper.insertExerciseInfo(pDTO);
     }
 
-    @Transactional
     @Override
     public ExerciseDTO getExerciseInfo(ExerciseDTO pDTO) throws Exception{
 
@@ -44,7 +46,14 @@ public class ExerciseService implements IExerciseService {
         return exerciseMapper.getExerciseInfo(pDTO);
     }
 
-    @Transactional
+    @Override
+    public ExerciseDTO getUserExerciseInfo(ExerciseDTO pDTO) throws Exception{
+
+        log.info(this.getClass().getName() + ".getUserExerciseInfo start!");
+
+        return exerciseMapper.getUserExerciseInfo(pDTO);
+    }
+    
     @Override
     public void updateExerciseInfo(ExerciseDTO pDTO) throws Exception {
 
@@ -53,7 +62,6 @@ public class ExerciseService implements IExerciseService {
         exerciseMapper.updateExerciseInfo(pDTO);
     }
 
-    @Transactional
     @Override
     public void deleteExerciseInfo(ExerciseDTO pDTO) throws Exception {
 

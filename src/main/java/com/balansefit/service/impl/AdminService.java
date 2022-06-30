@@ -5,16 +5,19 @@ import com.balansefit.persistance.mapper.IAdminMapper;
 import com.balansefit.service.IAdminService;
 import com.balansefit.util.CmmUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.annotation.Resource;
 
 @Slf4j
 @Service("AdminService")
 public class AdminService implements IAdminService {
 
-    @Resource(name = "IAdminMapper")
-    private IAdminMapper AdminMapper;
+    public final IAdminMapper iAdminMapper;
+
+    @Autowired
+    public AdminService(IAdminMapper iAdminMapper){
+        this.iAdminMapper = iAdminMapper;
+    }
 
     //로그인
     @Override
@@ -24,7 +27,7 @@ public class AdminService implements IAdminService {
         //성공: 1  실패: 0
         int res = 0;
 
-        AdminInfoDTO rDTO = AdminMapper.getAdminLoginCheck(pDTO);
+        AdminInfoDTO rDTO = iAdminMapper.getAdminLoginCheck(pDTO);
 
         if(rDTO == null) {
             log.info(this.getClass().getName() + "로그인 실패");
@@ -53,7 +56,7 @@ public class AdminService implements IAdminService {
             pDTO = new AdminInfoDTO();
 
         }
-        AdminInfoDTO rDTO = AdminMapper.getAdminExists(pDTO);
+        AdminInfoDTO rDTO = iAdminMapper.getAdminExists(pDTO);
         log.info("중복체크");
 
         if(rDTO == null) {
@@ -66,7 +69,7 @@ public class AdminService implements IAdminService {
             res = 2;
 
         }else {
-            int success = AdminMapper.insertAdmin(pDTO);
+            int success = iAdminMapper.insertAdmin(pDTO);
 
             if(success > 0){
 

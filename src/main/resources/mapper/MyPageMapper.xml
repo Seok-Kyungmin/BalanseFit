@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- JAVA와 연결할 Mapper 파일 설정 -->
-<mapper namespace="com.balansefit.persistance.mapper.IUserInfoMapper">
+<mapper namespace="com.balansefit.persistance.mapper.IMyPageMapper">
 
     <!-- 마이 페이지 사용자게시판 -->
     <select id="getSmallInfoList" resultType="UserInfoDTO">
-        SELECT USER_NAME, USER_WEIGHT, USER_AGE, USER_BM, USER_BMI
+        SELECT USER_NAME, USER_WEIGHT, USER_AGE, USER_BM, USER_BMI,USER_ID
         FROM USER_INFO
     </select>
 

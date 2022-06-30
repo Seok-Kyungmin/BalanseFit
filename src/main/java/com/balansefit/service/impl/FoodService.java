@@ -9,7 +9,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -23,7 +22,7 @@ import java.util.List;
 @Service("FoodService")
 public class FoodService implements IFoodService {
 
-    private final IFoodMapper foodMapper;
+    public final IFoodMapper foodMapper;
 
     @Autowired
     public FoodService(IFoodMapper foodMapper) {
@@ -105,7 +104,7 @@ public class FoodService implements IFoodService {
         return foodMapper.getFoodList();
     }
 
-    @Transactional
+    
     @Override
     public void insertFoodInfo(FoodDTO pDTO) throws Exception {
 
@@ -115,7 +114,7 @@ public class FoodService implements IFoodService {
 
     }
 
-    @Transactional
+    
     @Override
     public FoodDTO getFoodInfo(FoodDTO pDTO) throws Exception {
 
@@ -124,7 +123,7 @@ public class FoodService implements IFoodService {
         return foodMapper.getFoodInfo(pDTO);
     }
 
-    @Transactional
+    
     @Override
     public void deleteFoodInfo(FoodDTO pDTO) throws Exception {
 

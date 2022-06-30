@@ -17,6 +17,13 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+            <version>1.4.3.RELEASE</version>
+        </dependency>
+
         <!-- json 사용을 위한 라이브러리 -->
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>

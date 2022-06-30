@@ -286,4 +286,80 @@ public class ExerciseController {
         return "/redirect";
     }
 
+    /**
+     * 유저 게시판 리스트 보여주기
+     */
+    @GetMapping(value = "user/UExerciseList")
+    public String getUserExerciseList(ModelMap model)
+            throws Exception{
+
+        log.info(this.getClass().getName()+".UserExerciseList start!");
+
+        // 운동 리스트 가져오기
+        List<ExerciseDTO> eList = exerciseService.getUserExerciseList();
+
+        if (eList == null) {
+            eList = new ArrayList<>();
+        }
+
+        // 조회된 결과값 가져오기
+        model.addAttribute("eList", eList);
+
+        log.info(this.getClass().getName()+".UserExerciseList end!");
+
+        return "/exercise/UExerciseList";
+    }
+
+    /**
+     * 유저 게시판 상세보기
+     */
+    @GetMapping(value = "user/UExerciseInfo")
+    public String getUserExerciseInfo(HttpServletRequest request, ModelMap model) {
+
+        log.info(this.getClass().getName() + ".getUserExerciseInfo start!");
+
+        String msg = "";
+
+        try {
+            String eSeq = request.getParameter("eSeq");
+            log.info("eSeq : " + eSeq);
+
+            ExerciseDTO pDTO = new ExerciseDTO();
+            pDTO.setExercise_seq(eSeq);
+
+            // 상세정보 가져오기
+            ExerciseDTO rDTO = exerciseService.getUserExerciseInfo(pDTO);
+
+            if (rDTO == null) {
+                rDTO = new ExerciseDTO();
+            }
+            String session_id = CmmUtil.nvl(request.getParameter("SESSION_USER_ID"));
+
+            log.info("getUserExerciseInfo success!!");
+            log.info(this.getClass().getName()+" rDTO.getUser_id() "+rDTO.getUser_id());
+            log.info(this.getClass().getName()+" session_id "+session_id);
+            log.info(this.getClass().getName() + " Exercise_met : " +rDTO.getExercise_met());
+            log.info(this.getClass().getName() + " Exercise_name : " +rDTO.getExercise_name());
+            log.info(this.getClass().getName() + " Exercise_seq : " +rDTO.getExercise_seq());
+
+            // 조회된 리스트 결과값 넣어주기
+            model.addAttribute("rDTO", rDTO);
+            log.info("rDTO 값은?"+rDTO.getUser_id());
+
+        } catch (Exception e) {
+
+            msg= "실패하였습니다 : " + e.getMessage();
+            log.info(e.toString());
+            e.printStackTrace();
+        }finally {
+            log.info(this.getClass().getName() + "finally.ExerciseInsert end!");
+
+            // 결과 메시지 전달
+            model.addAttribute("msg", msg);
+
+        }
+
+        log.info((String) model.getAttribute("url"));
+        return "/exercise/UExerciseInfo";
+    }
 }

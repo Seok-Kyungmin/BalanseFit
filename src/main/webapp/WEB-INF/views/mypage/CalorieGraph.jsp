@@ -150,7 +150,7 @@
 
         <div class="container-xxl py-5 bg-dark hero-header mb-5">
             <div class="container text-center my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Weight Info</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Calorie Info</h1>
             </div>
         </div>
     </div>
@@ -161,20 +161,20 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Foods</h5>
-                <h1 class="mb-5">Weight</h1>
+                <h5 class="section-title ff-secondary text-center text-primary fw-normal">Calorie</h5>
+                <h1 class="mb-5">Calorie</h1>
 
 
                 <canvas id="myChart" width="800" height="400"></canvas>
                 <script>
                     const ctx = document.getElementById('myChart');
                     const myChart = new Chart(ctx, {
-                        type: 'line',
+                        type: 'bar',
                         data: {
                             labels: ['1월', '2월', '3월', '4월', '5월', '6월'],
                             datasets: [{
-                                label: '월별 체중',
-                                data: [55, 53, 53, 52, 51, 51],
+                                label: '월별 칼로리 초과량',
+                                data: [627, 32, 129, 52, 10, 30],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
                                     'rgba(54, 162, 235, 0.2)',

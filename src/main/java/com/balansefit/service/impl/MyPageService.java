@@ -7,7 +7,6 @@ import com.balansefit.service.IMyPageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
 @Service("MyPageService")
 public class MyPageService implements IMyPageService {
 
-    private final IMyPageMapper myPageMapper;
+    public final IMyPageMapper myPageMapper;
 
     @Autowired
     public MyPageService(IMyPageMapper myPageMapper) {
@@ -37,7 +36,7 @@ public class MyPageService implements IMyPageService {
     }
 
     // 프로필 글 수정
-    @Transactional
+    
     @Override
     public void updateUserInfo(UserInfoDTO uDTO) throws Exception {
 

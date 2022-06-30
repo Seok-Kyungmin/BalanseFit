@@ -50,7 +50,7 @@ public class MyPageController {
 
         log.info(this.getClass().getName()+ "mypage 끝!!");
 
-        return "/mypage/mypage";
+        return "/mypage/myPage";
     }
 
     @RequestMapping(value = "/setting")
@@ -117,5 +117,34 @@ public class MyPageController {
         log.info(this.getClass().getName()+".WeightGraph end!");
 
         return "/mypage/WeightGraph";
+    }
+
+    @GetMapping(value = "/CalorieGraph")
+    public String getCalorieGraph(HttpServletRequest request, ModelMap model) throws Exception{
+
+        log.info(this.getClass().getName()+".CalorieGraph start!");
+
+        // 웨이트디티오에 세션아이디를 넣고, 그 디티오를 파라미터로 넣는다
+        String msg = "";
+
+        try{
+
+            /*r관리자 페이지 연결 요함*/
+            String session_id = CmmUtil.nvl(request.getParameter("SESSION_USER_ID"));
+
+            session_id ="qwe";
+
+
+            log.info("uId : " + session_id);
+
+
+            log.info("getCalorieGraph success!!");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        log.info(this.getClass().getName()+".CalorieGraph end!");
+
+        return "/mypage/CalorieGraph";
     }
 }

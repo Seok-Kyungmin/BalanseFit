@@ -1,28 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="com.balansefit.util.CmmUtil" %>
-<%@ page import="com.balansefit.dto.DietDTO" %>
-<%
-    DietDTO dDTO = (DietDTO) request.getAttribute("dDTO");
-    String user_id =(String) request.getAttribute("user_id");
-
-//운동 정보를 못불러왔다면, 객체 생성
-    if (dDTO == null) {
-        dDTO = new DietDTO();
-
-    }
-
-    int access = 1; //(작성자 : 2 / 다른 사용자: 1)
-
-    System.out.println(CmmUtil.nvl("session에서 가져온 id: " + (String)session.getAttribute("SESSION_USER_ID")));
-    System.out.println(CmmUtil.nvl(" 가져온 id: " + user_id));
-
-    if (CmmUtil.nvl((String)session.getAttribute("SESSION_USER_ID")).equals(user_id)) {
-        access = 2;
-    }
-
-    String seq = CmmUtil.nvl((String)request.getAttribute("diet_seq"));
-    System.out.println("dietEdit: " + seq);
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,19 +33,8 @@
     <!-- Template Stylesheet -->
     <link href="../css/style.css" rel="stylesheet">
 
-    <title>Exercise Edit Info</title>
+    <title>Diet Add</title>
     <script type="text/javascript">
-
-        //작성자 여부체크
-        function doOnload() {
-
-            if ("<%=access%>" == "1") {
-                alert("작성자만 수정할 수 있습니다.");
-                location.href = "/admin/DietList";
-
-            }
-        }
-
         //전송시 유효성 체크
         function doSubmit(f) {
 
@@ -119,7 +86,6 @@
                 return false;
             }
         }
-
     </script>
 </head>
 <body onload="doOnload();">
@@ -146,51 +112,60 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="/index" class="nav-item nav-link">Home</a>
-                    <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
-                    <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
-                    <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
+                    <a href="/userIndex" class="nav-item nav-link">Home</a>
+                    <a href="/user/DietList" class="nav-item nav-link">Diet</a>
+                    <a href="/user/UExerciseList" class="nav-item nav-link">Exercise</a>
+                    <a href="/user/FoodList" class="nav-item nav-link">Food</a>
+                    <a href="/mypage" class="nav-item nav-link">MyPage</a>
+                    <a href="/chatbot/index" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Login</a>
+                <a href="/loginPage" class="btn btn-primary py-2 px-4">LogOut</a>
             </div>
         </nav>
 
         <div class="container-xxl py-5 bg-dark hero-header mb-5">
             <div class="container text-center my-5 pt-5 pb-4">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">Diet Info</h1>
+                <h1 class="display-3 text-white mb-3 animated slideInDown">Diet Add</h1>
             </div>
         </div>
     </div>
     <!-- Navbar & Hero End -->
+
 
     <!-- Menu Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h5 class="section-title ff-secondary text-center text-primary fw-normal">Diet</h5>
-                <h1 class="mb-5">식단정보 수정해주세요</h1>
-                <form name="f" method="post" action="/admin/DietUpdate" onsubmit="return doSubmit(this);">
+                <h1 class="mb-5">식단정보를 추가해주세요</h1>
+                <form action="/user/DietInsert" name="f" method="post" target="ifrPrc"
+                      onsubmit="return doSubmit(this)">
+
                     <div>
-                        <input type="hidden" name="dSeq" value="<%=CmmUtil.nvl(request.getParameter("dSeq")) %>"/>
+                        <input type="hidden" name="eSeq" value="<%=CmmUtil.nvl(request.getParameter("dSeq")) %>"/>
+
                         <div style="text-align: center;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="name" name="diet_name"
-                                       value="<%=CmmUtil.nvl(dDTO.getDiet_name()) %>" style="width: 340px; ">
+                                       placeholder="Diet Name" style="width: 340px; ">
                                 <label for="name">식단 이름</label>
                             </div>
                         </div>
-                        <h3>아침</h3>
+
+                        <h3 style="margin-top: 20px; margin-left: -250px;">아침</h3>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_m_1" name="food_m_1"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_m_1()) %>" style="width: 340px; ">
+                                       placeholder="Breakfast Food Name" style="width: 340px; ">
                                 <label for="food_m_1">아침식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_mc_1" name="food_mc_1"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_mc_1()) %>" style="width: 340px; ">
+                                       placeholder="Breakfast Food Quantity" style="width: 340px; ">
                                 <label for="food_mc_1">아침식단 식품 수량</label>
                             </div>
                         </div>
@@ -198,14 +173,15 @@
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_m_2" name="food_m_2"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_m_2()) %>" style="width: 340px; ">
+                                       placeholder="Breakfast Food Name" style="width: 340px; ">
                                 <label for="food_m_2">아침식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_mc_2" name="food_mc_2"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_mc_2()) %>" style="width: 340px; ">
+                                       placeholder="Breakfast Food Quantity" style="width: 340px; ">
                                 <label for="food_mc_2">아침식단 식품 수량</label>
                             </div>
                         </div>
@@ -213,29 +189,33 @@
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_m_3" name="food_m_3"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_m_3()) %>" style="width: 340px; ">
+                                       placeholder="Breakfast Food Name" style="width: 340px; ">
                                 <label for="food_m_3">아침식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_mc_3" name="food_mc_3"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_mc_3()) %>" style="width: 340px; ">
+                                       placeholder="Breakfast Food Quantity" style="width: 340px; ">
                                 <label for="food_mc_3">아침식단 식품 수량</label>
                             </div>
                         </div>
-                    <h3>점심</h3>
+
+                        <h3 style="margin-top: 20px; margin-left: -250px;">점심</h3>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_a_1" name="food_a_1"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_a_1()) %>" style="width: 340px; ">
-                                <label for="food_a_1">점심 식단 식품명</label>
+                                       placeholder="Lunch menu food name" style="width: 340px; ">
+                                <label for="food_a_1">점심식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_ac_1" name="food_ac_1"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_ac_1()) %>" style="width: 340px; ">
+                                       placeholder="Lunch Meal Food Quantity" style="width: 340px; ">
                                 <label for="food_ac_1">점심 식단 식품 수량</label>
                             </div>
                         </div>
@@ -243,14 +223,15 @@
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_a_2" name="food_a_2"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_a_2()) %>" style="width: 340px; ">
+                                       placeholder="Lunch menu food name" style="width: 340px; ">
                                 <label for="food_a_2">점심식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_ac_2" name="food_ac_2"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_ac_2()) %>" style="width: 340px; ">
+                                       placeholder="Lunch Meal Food Quantity" style="width: 340px; ">
                                 <label for="food_ac_2">점심식단 식품 수량</label>
                             </div>
                         </div>
@@ -258,29 +239,33 @@
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_a_3" name="food_a_3"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_a_3()) %>" style="width: 340px; ">
+                                       placeholder="Lunch menu food name" style="width: 340px; ">
                                 <label for="food_a_3">점심식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_ac_3" name="food_ac_3"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_ac_3()) %>" style="width: 340px; ">
+                                       placeholder="Lunch Meal Food Quantity" style="width: 340px; ">
                                 <label for="food_ac_3">점심식단 식품 수량</label>
                             </div>
                         </div>
-                    <h3>저녁</h3>
+
+                        <h3 style="margin-top: 20px; margin-left: -250px;">저녁</h3>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_d_1" name="food_d_1"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_d_1()) %>" style="width: 340px; ">
+                                       placeholder="Dinner food name" style="width: 340px; ">
                                 <label for="food_d_1">저녁식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_dc_1" name="food_dc_1"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_dc_1()) %>" style="width: 340px; ">
+                                       placeholder="Dinner food Quantity" style="width: 340px; ">
                                 <label for="food_dc_1">저녁식단 식품 수량</label>
                             </div>
                         </div>
@@ -288,14 +273,15 @@
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_d_2" name="food_d_2"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_d_2()) %>" style="width: 340px; ">
+                                       placeholder="Dinner food name" style="width: 340px; ">
                                 <label for="food_d_2">저녁식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_dc_2" name="food_dc_2"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_dc_2()) %>" style="width: 340px; ">
+                                       placeholder="Dinner food Quantity" style="width: 340px; ">
                                 <label for="food_dc_2">저녁식단 식품 수량</label>
                             </div>
                         </div>
@@ -303,15 +289,24 @@
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_d_3" name="food_d_3"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_d_3()) %>" style="width: 340px; ">
+                                       placeholder="Dinner food name" style="width: 340px; ">
                                 <label for="food_d_3">저녁식단 식품명</label>
                             </div>
                         </div>
+
                         <div style="text-align: center; margin-top: 15px;">
                             <div class="form-floating" style="display: inline-block;">
                                 <input type="text" class="form-control" id="food_dc_3" name="food_dc_3"
-                                       value="<%=CmmUtil.nvl(dDTO.getFood_dc_3()) %>" style="width: 340px; ">
+                                       placeholder="Dinner food Quantity" style="width: 340px; ">
                                 <label for="food_dc_3">저녁식단 식품 수량</label>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 15px;">
+                            <div class="form-floating" style="display: inline-block;">
+                                <input type="text" class="form-control" id="diet_calories" name="diet_calories"
+                                       placeholder="Total calories" style="width: 340px; ">
+                                <label for="food_dc_3">총 칼로리</label>
                             </div>
                         </div>
 
@@ -321,11 +316,14 @@
                             <button class="btn btn-primary py-2" style="margin-left: 10px;" type="reset">다시 작성</button>
                         </div>
                     </div>
-
                 </form>
+
             </div>
+
         </div>
     </div>
+    <!-- Menu End -->
+
 
     <!-- Footer Start -->
     <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
@@ -338,20 +336,21 @@
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../lib/wow/wow.min.js"></script>
-    <script src="../lib/easing/easing.min.js"></script>
-    <script src="../lib/waypoints/waypoints.min.js"></script>
-    <script src="../lib/counterup/counterup.min.js"></script>
-    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
-    <script src="../lib/tempusdominus/js/moment.min.js"></script>
-    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-    <!-- Template Javascript -->
-    <script src="../js/main.js"></script>
 </div>
+
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../lib/wow/wow.min.js"></script>
+<script src="../lib/easing/easing.min.js"></script>
+<script src="../lib/waypoints/waypoints.min.js"></script>
+<script src="../lib/counterup/counterup.min.js"></script>
+<script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="../lib/tempusdominus/js/moment.min.js"></script>
+<script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<!-- Template Javascript -->
+<script src="../js/main.js"></script>
 </body>
 </html>

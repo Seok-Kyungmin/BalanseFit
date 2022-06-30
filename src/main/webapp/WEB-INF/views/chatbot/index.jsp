@@ -83,34 +83,19 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="/index" class="nav-item nav-link">Home</a>
-                    <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
-                    <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
-                    <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
-                        <div class="dropdown-menu m-0">
-                            <a href="booking.html" class="dropdown-item">Booking</a>
-                            <a href="team.html" class="dropdown-item">Our Team</a>
-                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
-                        </div>
-                    </div>
-                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                    <a href="/userIndex" class="nav-item nav-link">Home</a>
+                    <a href="/user/DietList" class="nav-item nav-link">Diet</a>
+                    <a href="/user/UExerciseList" class="nav-item nav-link">Exercise</a>
+                    <a href="/mypage" class="nav-item nav-link">MyPage</a>
+                    <a href="/chatbot/index" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="" class="btn btn-primary py-2 px-4">Book A Table</a>
+                <a href="loginPage" class="btn btn-primary py-2 px-4">Logout</a>
             </div>
         </nav>
 
         <div class="container-xxl py-5 bg-dark hero-header mb-5">
             <div class="container text-center my-5 pt-5 pb-4">
                 <h1 class="display-3 text-white mb-3 animated slideInDown">About Us</h1>
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb justify-content-center text-uppercase">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                        <li class="breadcrumb-item text-white active" aria-current="page">About</li>
-                    </ol>
-                </nav>
             </div>
         </div>
     </div>

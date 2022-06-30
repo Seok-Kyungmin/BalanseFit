@@ -22,4 +22,10 @@ public interface IExerciseMapper {
 
     // 게시판 글 삭제
     void deleteExerciseInfo(ExerciseDTO pDTO) throws Exception;
+
+    //유저 게시판 리스트
+    List<ExerciseDTO> getUserExerciseList() throws Exception;
+
+    // 유저 게시판 상세보기
+    ExerciseDTO getUserExerciseInfo(ExerciseDTO pDTO) throws Exception;
 }

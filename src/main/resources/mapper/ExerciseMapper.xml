@@ -10,6 +10,29 @@
         ORDER BY EXERCISE_SEQ ASC
     </select>
 
+    <!-- 유저 운동 정보 리스트 -->
+    <select id="getUserExerciseList" resultType="ExerciseDTO">
+        SELECT EXERCISE_SEQ, EXERCISE_NAME, EXERCISE_MET
+        FROM EXERCISE
+        ORDER BY EXERCISE_SEQ ASC
+    </select>
+
+    <!-- 운동 정보 상세보기 -->
+    <select id="getExerciseInfo" parameterType="ExerciseDTO" resultType="ExerciseDTO">
+        SELECT E.EXERCISE_SEQ, E.EXERCISE_NAME, E.EXERCISE_MET, E.USER_ID,
+               A.ADM_ID, DATE_FORMAT(E.REG_DT, '%Y-%m-%d')AS REG_DT
+        FROM EXERCISE E, ADMIN_INFO A
+        WHERE E.EXERCISE_SEQ = #{exercise_seq}
+    </select>
+
+    <!-- 운동 정보 상세보기 -->
+    <select id="getUserExerciseInfo" parameterType="ExerciseDTO" resultType="ExerciseDTO">
+        SELECT E.EXERCISE_SEQ, E.EXERCISE_NAME, E.EXERCISE_MET, E.USER_ID,
+               A.ADM_ID, DATE_FORMAT(E.REG_DT, '%Y-%m-%d')AS REG_DT
+        FROM EXERCISE E, ADMIN_INFO A
+        WHERE E.EXERCISE_SEQ = #{exercise_seq}
+    </select>
+
     <!-- 운동 정보 등록 -->
     <insert id="insertExerciseInfo" parameterType="ExerciseDTO">
         INSERT INTO EXERCISE(

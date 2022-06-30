@@ -6,7 +6,6 @@ import com.balansefit.service.IDietService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 @Service("DietService")
 public class DietService implements IDietService {
 
-    private final IDietMapper dietMapper;
+    public final IDietMapper dietMapper;
 
     @Autowired
     public DietService(IDietMapper dietMapper) {
@@ -25,8 +24,7 @@ public class DietService implements IDietService {
     public List<DietDTO> getDietList() throws Exception {
         return dietMapper.getDietList();
     }
-
-    @Transactional
+    
     @Override
     public void InsertDietInfo(DietDTO pDTO) throws Exception {
 
@@ -34,7 +32,6 @@ public class DietService implements IDietService {
         dietMapper.InsertDietInfo(pDTO);
     }
 
-    @Transactional
     @Override
     public DietDTO getDietInfo(DietDTO pDTO) throws Exception {
 
@@ -43,15 +40,7 @@ public class DietService implements IDietService {
         return dietMapper.getDietInfo(pDTO);
     }
 
-    @Transactional
-    @Override
-    public void updateDietInfo(DietDTO pDTO) throws Exception {
 
-        log.info(this.getClass().getName() + ".updateDietInfo start!");
-        dietMapper.updateDietInfo(pDTO);
-    }
-
-    @Transactional
     @Override
     public void deleteDietInfo(DietDTO pDTO) throws Exception {
 

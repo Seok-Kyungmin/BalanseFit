@@ -39,7 +39,7 @@
 
     <link href="../css/exerciseInfo.css" rel="stylesheet">
     <%
-        session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
+        session.setAttribute("SESSION_USER_ID", "user_id"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
 
         List<ExerciseDTO> eList = (List<ExerciseDTO>) request.getAttribute("eList");
 
@@ -53,7 +53,7 @@
 
         //상세보기 이동
         function doDetail(seq) {
-            location.href = "/admin/ExerciseInfo?eSeq=" + seq;
+            location.href = "/user/UExerciseInfo?eSeq=" + seq;
         }
 
     </script>
@@ -83,21 +83,14 @@
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="/index" class="nav-item nav-link">Home</a>
-                    <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
-                    <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
-                    <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
-                    <!--                        <div class="nav-item dropdown">-->
-                    <!--                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>-->
-                    <!--                            <div class="dropdown-menu m-0">-->
-                    <!--                                <a href="booking.html" class="dropdown-item">Booking</a>-->
-                    <!--                                <a href="food.html" class="dropdown-item active">Our Team</a>-->
-                    <!--                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
+                    <a href="/userIndex" class="nav-item nav-link">Home</a>
+                    <a href="/user/DietList" class="nav-item nav-link">Diet</a>
+                    <a href="/user/UExerciseList" class="nav-item nav-link">Exercise</a>
+                    <a href="/user/FoodList" class="nav-item nav-link">Food</a>
+                    <a href="/mypage" class="nav-item nav-link">MyPage</a>
+                    <a href="/chatbot/index" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Login</a>
+                <a href="/loginPage" class="btn btn-primary py-2 px-4">LogOut</a>
             </div>
         </nav>
 
@@ -116,9 +109,6 @@
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h5 class="section-title ff-secondary text-center text-primary fw-normal">Exercises</h5>
                 <h1 class="mb-5">Our Exercise</h1>
-                <div style="text-align: right;margin-bottom: 30px;">
-                    <a href="/admin/ExerciseReg" class="btn btn-primary py-2 px-4">추가하기</a>
-                </div>
             </div>
             <div class="con">
                 <div class="divTable minimalistBlack">
@@ -146,7 +136,7 @@
                             <div class="divTableCell"><%=CmmUtil.nvl(eDTO.getExercise_seq())%></div>
                             <div class="divTableCell">
                                 <a href="javascript:doDetail('<%=CmmUtil.nvl(eDTO.getExercise_seq())%>');">
-                                <%=CmmUtil.nvl(eDTO.getExercise_name())%></a></div>
+                                    <%=CmmUtil.nvl(eDTO.getExercise_name())%></a></div>
                             <div class="divTableCell"><%=CmmUtil.nvl(eDTO.getExercise_met())%></div>
                         </div>
                     </div>

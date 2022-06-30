@@ -105,7 +105,7 @@
 <div style="background-color: #fff; padding: 30px; margin: 0; box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.16); box-shadow: 5px 5px 5px#bec8cb">
     <h3 class="tit">칼로리 처방</h3>
 </div>
-<form id="formAuthentication" class="mb-3" method="post" action="/loginPage1" onsubmit="return doUser_RC(this)">
+<form id="formAuthentication" class="mb-3" method="post" action="/mypage" onsubmit="return doUser_RC(this)">
 <div class="box">
     <div class="G">
         <h4 class="cate">키</h4>

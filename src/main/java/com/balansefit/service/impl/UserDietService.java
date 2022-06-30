@@ -1,14 +1,12 @@
 package com.balansefit.service.impl;
 
-
-import com.balansefit.dto.FoodDTO;
+import com.balansefit.dto.DietDTO;
 import com.balansefit.dto.UserDietDTO;
 import com.balansefit.persistance.mapper.IUserDietMapper;
 import com.balansefit.service.IUserDietService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ import java.util.List;
 @Service("UserDietService")
 public class UserDietService implements IUserDietService {
 
-    private final IUserDietMapper userDietMapper;
+    public final IUserDietMapper userDietMapper;
 
     @Autowired
     public UserDietService(IUserDietMapper userDietMapper) {
@@ -24,44 +22,32 @@ public class UserDietService implements IUserDietService {
     }
 
     @Override
-    public List<UserDietDTO> getUserDietList() throws Exception {
+    public List<DietDTO> getUserDietList() throws Exception {
         return userDietMapper.getUserDietList();
     }
 
-    @Transactional
     @Override
-    public void insertUserDietInfo(UserDietDTO dDTO) throws Exception {
+    public void insertUserDietInfo(UserDietDTO pDTO) throws Exception {
 
         log.info(this.getClass().getName() + "insertUserDietInfo 시작!");
 
-        userDietMapper.insertUserDietInfo(dDTO);
+        userDietMapper.insertUserDietInfo(pDTO);
     }
 
-    @Transactional
     @Override
-    public UserDietDTO getUserDietInfo(UserDietDTO dDTO) throws Exception {
+    public UserDietDTO getUserDietInfo(UserDietDTO pDTO) throws Exception {
 
         log.info(this.getClass().getName() + "getUserDietInfo 시작!");
 
-        return userDietMapper.getUserDietInfo(dDTO);
+        return userDietMapper.getUserDietInfo(pDTO);
     }
 
-//    @Transactional
-//    @Override
-//    public void updateUserDietInfo(UserDietDTO dDTO) throws Exception {
-//
-//        log.info(this.getClass().getName() + "updateUserDietInfo 시작!");
-//
-//        userDietMapper.updateUserDietInfo(dDTO);
-//    }
-
-    @Transactional
     @Override
-    public void deleteUserDietInfo(UserDietDTO dDTO) throws Exception {
+    public void deleteUserDietInfo(UserDietDTO pDTO) throws Exception {
 
         log.info(this.getClass().getName() + "deleteUserDietInfo 시작!");
 
-        userDietMapper.deleteUserDietInfo(dDTO);
+        userDietMapper.deleteUserDietInfo(pDTO);
     }
 
 }

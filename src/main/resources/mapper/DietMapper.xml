@@ -32,18 +32,6 @@
         WHERE DIET_SEQ = #{diet_seq}
     </select>
 
-    <!-- 식단 정보 수정 -->
-    <update id="updateDietInfo" parameterType="DietDTO">
-        UPDATE DIET SET
-                DIET_NAME = #{diet_name}, FOOD_M_1 = #{food_m_1},FOOD_MC_1 = #{food_mc_1}, FOOD_M_2 =#{food_m_2},
-                FOOD_MC_2 = #{food_mc_2}, FOOD_M_3 =#{food_m_3},FOOD_MC_3 = #{food_mc_3}, FOOD_A_1 =#{food_a_1},
-                FOOD_AC_1 = #{food_ac_1}, FOOD_A_2 =#{food_a_2},FOOD_AC_2 = #{food_ac_2}, FOOD_A_3 =#{food_a_3},
-                FOOD_AC_3 = #{food_ac_3}, FOOD_D_1 =#{food_d_1},FOOD_DC_1 = #{food_dc_1}, FOOD_D_2 =#{food_d_2},
-                FOOD_DC_2 = #{food_dc_2}, FOOD_D_3 =#{food_d_3}, FOOD_DC_3 =#{food_dc_3}, DIET_CALORIES = #{diet_calories},
-                CHG_ID = #{chg_id}, CHG_DT = SYSDATE()
-        WHERE DIET_SEQ = #{diet_seq}
-    </update>
-
     <!-- 식단 정보 삭제 -->
     <delete id="deleteDietInfo" parameterType="DietDTO">
         DELETE FROM DIET

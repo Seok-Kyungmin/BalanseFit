@@ -131,7 +131,7 @@
 </div>
 <!-- Container end -->
 
-<script src="js/jquery.min.js"></script>
+<script src="../js/jquery.min.js"></script>
 </body>
 
 <!-- Mirrored from bootstrap.gallery/maxwell/designs/gradient-version/signup.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 12 Apr 2022 21:48:34 GMT -->

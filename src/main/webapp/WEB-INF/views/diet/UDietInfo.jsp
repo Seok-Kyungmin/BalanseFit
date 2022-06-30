@@ -66,30 +66,11 @@
     <title>식단정보 보기</title>
     <script type="text/javascript">
 
-        //수정하기
-        function doEdit() {
-            if ("<%=edit%>" == 2) {
-                let edit = <%=edit%>;
-                console.log(edit);
-                alert("수정하기 이동");
-                let s = "/admin/DietEdit?dSeq=<%=CmmUtil.nvl(rDTO.getDiet_seq())%>&user_id=<%=user_id%>";
-                alert(s)
-                location.href = s;
-
-            } else if ("<%=edit%>" == 3) {
-                alert("로그인 하시길 바랍니다.");
-
-            } else {
-                alert("본인이 작성한 글만 수정 가능합니다.");
-
-            }
-        }
-
         //삭제하기
         function doDelete() {
             if ("<%=edit%>" == 2) {
                 if (confirm("작성한 글을 삭제하시겠습니까?")) {
-                    location.href = "/admin/DietDelete?dSeq=<%=CmmUtil.nvl(rDTO.getDiet_seq())%>";
+                    location.href = "/user/UDietDelete?dSeq=<%=CmmUtil.nvl(rDTO.getDiet_seq())%>";
 
                 }
 
@@ -104,7 +85,7 @@
 
         //목록으로 이동
         function doList() {
-            window.location.href = "/admin/DietList";
+            window.location.href = "/user/UDietList";
 
         }
     </script>
@@ -133,21 +114,14 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto py-0 pe-4">
-                    <a href="/index" class="nav-item nav-link">Home</a>
-                    <a href="/admin/DietList" class="nav-item nav-link">Diet</a>
-                    <a href="/admin/ExerciseList" class="nav-item nav-link">Exercise</a>
-                    <a href="/admin/FoodList" class="nav-item nav-link">Food</a>
-                    <!--                        <div class="nav-item dropdown">-->
-                    <!--                            <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pages</a>-->
-                    <!--                            <div class="dropdown-menu m-0">-->
-                    <!--                                <a href="booking.html" class="dropdown-item">Booking</a>-->
-                    <!--                                <a href="food.html" class="dropdown-item active">Our Team</a>-->
-                    <!--                                <a href="testimonial.html" class="dropdown-item">Testimonial</a>-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                        <a href="contact.html" class="nav-item nav-link">Contact</a>-->
+                    <a href="/userIndex" class="nav-item nav-link">Home</a>
+                    <a href="/user/DietList" class="nav-item nav-link">Diet</a>
+                    <a href="/user/UExerciseList" class="nav-item nav-link">Exercise</a>
+                    <a href="/user/FoodList" class="nav-item nav-link">Food</a>
+                    <a href="/mypage" class="nav-item nav-link">MyPage</a>
+                    <a href="/chatbot/index" class="nav-item nav-link">Contact</a>
                 </div>
-                <a href="/adminLoginPage" class="btn btn-primary py-2 px-4">Logout</a>
+                <a href="/loginPage" class="btn btn-primary py-2 px-4">LogOut</a>
             </div>
         </nav>
 

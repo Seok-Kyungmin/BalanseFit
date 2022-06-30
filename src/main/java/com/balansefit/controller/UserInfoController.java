@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +33,13 @@ public class UserInfoController {
         return "/login/top";
     }
 
+    // 관리자 메인 페이지
+    @GetMapping(value = "userIndex")
+    public String userIndex() {
+
+        return "/user/userIndex";
+
+    }
 
     /*
      * 회원가입 화면으로 이동
@@ -165,7 +171,7 @@ public class UserInfoController {
             if (res == 1) {
 
                 msg = "로그인 성공";
-                url = "/mypage";
+                url = "/userIndex";
                 icon = "success";
                 log.info("user_id : " + user_id);
 
@@ -205,54 +211,46 @@ public class UserInfoController {
         return "/login/userLogin";
     }
 
-//    /* 비밀번호 찾기 */
-//    @RequestMapping(value = "/findpw", method = RequestMethod.GET)
-//    public void findPwGET() throws Exception{
-//    }
-//
-//    @RequestMapping(value = "/findpw", method = RequestMethod.POST)
-//    public void findPwPOST(@ModelAttribute MemberVO member, HttpServletResponse response) throws Exception{
-//        service.findPw(response, member);
-//    }
+
 
     /*비밀번호 초기화 요청*/
-    @ResponseBody
-    @PostMapping(value = "/resetRequest")
-    public String resetRequest(HttpServletRequest request) throws Exception {
-        log.info("########"+this.getClass().getName()+ "resetRequest start");
-        String email = CmmUtil.nvl(request.getParameter("email"));
-
-        log.info("email :" + email);
-        UserInfoDTO tDTO = new UserInfoDTO();
-        tDTO.setUser_email(email);
-
-        int res = UserInfoService.getUserExists2(tDTO);
-
-
-        log.info(this.getClass().getName()+"resetRequest emailCheck 결과 : " + res);
-
-        /*email 링크 클릭 시 접속 주소*/
-        String Durl = "https://gros19.click/EmailAuthPWRestProc";
-
-        String result = "";
-
-        /*
-         * res -1 //email 미등록
-         * res -2 //email 미인증
-         * res  0 //server error
-         * res 1  //email 확인
-         * */
-        if (res==1){
-            log.info(this.getClass().getName()+"메일 전송 시작");
-            /*메일 전송*/
-            UserInfoService.sendAuthEmail(email, Durl);
-        }
-        result = String.valueOf(res);
-
-
-        log.info(this.getClass().getName()+"resetRequest ajax return 결과 : " + result);
-        log.info(this.getClass().getName()+"resetRequest end");
-        return result;
-    }
+//    @ResponseBody
+//    @PostMapping(value = "/resetRequest")
+//    public String resetRequest(HttpServletRequest request) throws Exception {
+//        log.info("########"+this.getClass().getName()+ "resetRequest start");
+//        String email = CmmUtil.nvl(request.getParameter("email"));
+//
+//        log.info("email :" + email);
+//        UserInfoDTO tDTO = new UserInfoDTO();
+//        tDTO.setUser_email(email);
+//
+//        int res = UserInfoService.getUserExists2(tDTO);
+//
+//
+//        log.info(this.getClass().getName()+"resetRequest emailCheck 결과 : " + res);
+//
+//        /*email 링크 클릭 시 접속 주소*/
+//        String Durl = "https://gros19.click/EmailAuthPWRestProc";
+//
+//        String result = "";
+//
+//        /*
+//         * res -1 //email 미등록
+//         * res -2 //email 미인증
+//         * res  0 //server error
+//         * res 1  //email 확인
+//         * */
+//        if (res==1){
+//            log.info(this.getClass().getName()+"메일 전송 시작");
+//            /*메일 전송*/
+//            UserInfoService.sendAuthEmail(email, Durl);
+//        }
+//        result = String.valueOf(res);
+//
+//
+//        log.info(this.getClass().getName()+"resetRequest ajax return 결과 : " + result);
+//        log.info(this.getClass().getName()+"resetRequest end");
+//        return result;
+//    }
 }
 

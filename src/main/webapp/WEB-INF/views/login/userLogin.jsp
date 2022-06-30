@@ -3,17 +3,6 @@
 <%@ page import="com.balansefit.util.CmmUtil" %>
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
--->
 <!-- beautify ignore:start -->
 <html
         lang="en"
@@ -211,15 +200,6 @@
 </div>
 
 <!-- / Content -->
-
-<!--    <div class="buy-now">-->
-<!--      <a-->
-<!--        href="https://themeselection.com/products/sneat-bootstrap-html-admin-template/"-->
-<!--        target="_blank"-->
-<!--        class="btn btn-danger btn-buy-now"-->
-<!--        >Upgrade to Pro</a-->
-<!--      >-->
-<!--    </div>-->
 
 <!-- Core JS -->
 <!-- build:js ../static/assets/vendor/js/core.js -->

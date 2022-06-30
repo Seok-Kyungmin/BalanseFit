@@ -23,6 +23,8 @@ public interface IUserInfoMapper {
     //유저 회원가입
     int insertUser(UserInfoDTO tDTO) throws Exception;
 
-    UserInfoDTO findPW (UserInfoDTO tDTO) throws Exception;
+//    // 비밀번호 찾기
+//    String findPw(HttpServletResponse resp, UserInfoDTO tDTO) throws Exception;
+
 
 }
